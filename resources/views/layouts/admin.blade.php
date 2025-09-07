@@ -280,7 +280,7 @@
             <div class="p-4 border-bottom border-secondary border-opacity-25">
                 <h4 class="text-white mb-0 fw-bold">
                     <i class="fas fa-user-shield me-2 text-primary"></i>
-                    <span class="fs-5">Admin Panel1</span>
+                    <span class="fs-5">Admin Panel</span>
                 </h4>
                 <p class="text-white-50 mb-0 mt-1 small">Management Dashboard</p>
             </div>
