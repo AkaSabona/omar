@@ -201,7 +201,7 @@
 
 @push('styles')
 <!-- Bootstrap 3.4.1 CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> -->
 <style>
 /* TinyMCE Custom Styles */
 .tox-tinymce {
