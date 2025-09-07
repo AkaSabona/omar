@@ -1,0 +1,121 @@
+/* Summernote Custom Styles */
+.note-editor {
+    border: 1px solid #d1d3e2;
+    border-radius: 0.35rem;
+}
+
+.note-editor.note-frame {
+    border: 1px solid #d1d3e2;
+}
+
+.note-editor.note-frame.codeview .note-editing-area .note-codable {
+    border: none;
+}
+
+.note-toolbar {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+    padding: 0.5rem;
+}
+
+.note-editing-area {
+    background-color: white;
+}
+
+.note-editable {
+    padding: 1rem;
+    min-height: 200px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.note-editable:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+/* Image alignment styles for Summernote content */
+.note-editable img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.25rem;
+    margin: 0.5rem 0;
+}
+
+.note-editable img.align-left {
+    float: left;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.note-editable img.align-right {
+    float: right;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.note-editable img.align-center {
+    display: block;
+    margin: 1rem auto;
+}
+
+/* Table styles */
+.note-editable table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.note-editable table td,
+.note-editable table th {
+    border: 1px solid #dee2e6;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.note-editable table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+/* List styles */
+.note-editable ul,
+.note-editable ol {
+    padding-left: 2rem;
+    margin: 0.5rem 0;
+}
+
+.note-editable li {
+    margin-bottom: 0.25rem;
+}
+
+/* Link styles */
+.note-editable a {
+    color: #4e73df;
+    text-decoration: none;
+}
+
+.note-editable a:hover {
+    color: #2e59d9;
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .note-toolbar {
+        padding: 0.25rem;
+    }
+    
+    .note-editable {
+        padding: 0.75rem;
+        font-size: 13px;
+    }
+    
+    .note-editable img.align-left,
+    .note-editable img.align-right {
+        float: none;
+        display: block;
+        margin: 0.5rem auto;
+    }
+}

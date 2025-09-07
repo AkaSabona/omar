@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <rect width="200" height="80" fill="#f8f9fa"/>
+  <text x="100" y="45" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#e84393">Energizer</text>
+  <circle cx="25" cy="40" r="8" fill="#e84393" opacity="0.4"/>
+  <circle cx="175" cy="40" r="8" fill="#e84393" opacity="0.4"/>
+  <path d="M25 32 L25 48 M21 36 L29 36 M21 44 L29 44" stroke="#e84393" stroke-width="2" fill="none"/>
+  <path d="M175 32 L175 48 M171 36 L179 36 M171 44 L179 44" stroke="#e84393" stroke-width="2" fill="none"/>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <rect width="200" height="80" fill="#f8f9fa"/>
+  <text x="100" y="45" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#0984e3">Arafa</text>
+  <polygon points="25,25 35,35 25,45 15,35" fill="#0984e3" opacity="0.3"/>
+  <polygon points="175,25 185,35 175,45 165,35" fill="#0984e3" opacity="0.3"/>
+</svg>
