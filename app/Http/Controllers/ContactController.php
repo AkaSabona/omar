@@ -50,7 +50,7 @@ class ContactController extends Controller
 
         // Prepare email notification data
         try {
-            $adminEmail = env('ADMIN_EMAIL', 'omargamal@gmail.com');
+            $adminEmail = env('ADMIN_EMAIL', 'heshamnaeem18@outlook.com');
             
             // Try to load SMTP and recipient settings from SiteSetting if available
             $settings = SiteSetting::first();
