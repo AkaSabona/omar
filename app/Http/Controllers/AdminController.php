@@ -154,17 +154,7 @@ class AdminController extends Controller
             'profile_skills' => 'required|array|min:1',
             'profile_skills.*' => 'required|string|max:50',
             'astronaut_section_title' => 'required|string|max:255',
-            'astronaut_section_description' => 'required|string|max:1000',
-            // Email & SMTP Settings
-            'mail_enabled' => 'nullable|boolean',
-            'admin_email' => 'nullable|email',
-            'mail_host' => 'nullable|string|max:255',
-            'mail_port' => 'nullable|integer|min:1|max:65535',
-            'mail_encryption' => 'nullable|in:ssl,tls',
-            'mail_username' => 'nullable|string|max:255',
-            'mail_password' => 'nullable|string|max:255',
-            'mail_from_address' => 'nullable|email',
-            'mail_from_name' => 'nullable|string|max:255',
+            'astronaut_section_description' => 'required|string|max:1000'
         ]);
 
         $siteSettings = SiteSetting::first();
@@ -180,23 +170,6 @@ class AdminController extends Controller
         $siteSettings->profile_skills = $request->profile_skills;
         $siteSettings->astronaut_section_title = $request->astronaut_section_title;
         $siteSettings->astronaut_section_description = $request->astronaut_section_description;
-
-        // Email & SMTP settings persistence
-        $siteSettings->mail_enabled = (bool) $request->boolean('mail_enabled');
-        if (!empty($request->admin_email)) {
-            $siteSettings->admin_email = $request->admin_email;
-        }
-        $siteSettings->mail_host = $request->mail_host ?: null;
-        $siteSettings->mail_port = $request->mail_port ?: null;
-        $siteSettings->mail_encryption = $request->mail_encryption ?: null;
-        $siteSettings->mail_username = $request->mail_username ?: null;
-        // Preserve existing password if left blank
-        if ($request->filled('mail_password')) {
-            $siteSettings->mail_password = $request->mail_password;
-        }
-        $siteSettings->mail_from_address = $request->mail_from_address ?: null;
-        $siteSettings->mail_from_name = $request->mail_from_name ?: null;
-
         $siteSettings->save();
 
         return redirect()->route('admin.dashboard')->with('success', 'Site settings updated successfully!');
