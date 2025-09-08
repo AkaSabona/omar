@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::table('site_settings', function (Blueprint $table) {
+            $table->string('admin_email')->nullable()->after('astronaut_section_description');
+            $table->boolean('mail_enabled')->default(false)->after('admin_email');
+            $table->string('mail_host')->nullable()->after('mail_enabled');
+            $table->integer('mail_port')->nullable()->after('mail_host');
+            $table->string('mail_encryption')->nullable()->after('mail_port');
+            $table->string('mail_username')->nullable()->after('mail_encryption');
+            $table->string('mail_password')->nullable()->after('mail_username');
+            $table->string('mail_from_address')->nullable()->after('mail_password');
+            $table->string('mail_from_name')->nullable()->after('mail_from_address');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('site_settings', function (Blueprint $table) {
+            $table->dropColumn([
+                'admin_email',
+                'mail_enabled',
+                'mail_host',
+                'mail_port',
+                'mail_encryption',
+                'mail_username',
+                'mail_password',
+                'mail_from_address',
+                'mail_from_name',
+            ]);
+        });
+    }
+};

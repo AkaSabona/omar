@@ -214,6 +214,74 @@
                                     <label for="astronaut_section_description"><i class="fas fa-align-left me-2"></i>Section Description</label>
                                 </div>
                             </div>
+                            
+                            <!-- Email & SMTP Settings -->
+                            <div class="col-12">
+                                <label class="form-label fw-semibold mt-3">
+                                    <i class="fas fa-envelope me-2"></i>Email & SMTP Settings
+                                </label>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="mail_enabled" name="mail_enabled" value="1" {{ ($siteSettings && $siteSettings->mail_enabled) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="mail_enabled">Enable email notifications</label>
+                                </div>
+                                <div class="row g-2">
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="admin_email" name="admin_email" value="{{ $siteSettings->admin_email ?? env('ADMIN_EMAIL', 'omargamal@gmail.com') }}">
+                                            <label for="admin_email"><i class="fas fa-inbox me-2"></i>Recipient Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="mail_host" name="mail_host" value="{{ $siteSettings->mail_host ?? '' }}">
+                                            <label for="mail_host"><i class="fas fa-server me-2"></i>SMTP Host</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input type="number" min="1" class="form-control" id="mail_port" name="mail_port" value="{{ $siteSettings->mail_port ?? '' }}">
+                                            <label for="mail_port"><i class="fas fa-plug me-2"></i>SMTP Port</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <select class="form-select" id="mail_encryption" name="mail_encryption">
+                                                <option value="" {{ empty($siteSettings->mail_encryption) ? 'selected' : '' }}>None</option>
+                                                <option value="ssl" {{ ($siteSettings->mail_encryption ?? '') === 'ssl' ? 'selected' : '' }}>SSL</option>
+                                                <option value="tls" {{ ($siteSettings->mail_encryption ?? '') === 'tls' ? 'selected' : '' }}>TLS</option>
+                                            </select>
+                                            <label for="mail_encryption"><i class="fas fa-lock me-2"></i>Encryption</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="mail_username" name="mail_username" value="{{ $siteSettings->mail_username ?? '' }}">
+                                            <label for="mail_username"><i class="fas fa-user me-2"></i>SMTP Username</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input type="password" class="form-control" id="mail_password" name="mail_password" placeholder="Leave blank to keep current">
+                                            <label for="mail_password"><i class="fas fa-key me-2"></i>SMTP Password</label>
+                                        </div>
+                                        @if($siteSettings && $siteSettings->mail_password)
+                                            <small class="text-muted">Password is set. Leave blank to keep unchanged.</small>
+                                        @endif
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="mail_from_address" name="mail_from_address" value="{{ $siteSettings->mail_from_address ?? env('MAIL_FROM_ADDRESS') }}">
+                                            <label for="mail_from_address"><i class="fas fa-paper-plane me-2"></i>From Address</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="mail_from_name" name="mail_from_name" value="{{ $siteSettings->mail_from_name ?? env('MAIL_FROM_NAME', config('app.name')) }}">
+                                            <label for="mail_from_name"><i class="fas fa-signature me-2"></i>From Name</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="d-grid mt-4">

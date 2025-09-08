@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Message;
+use App\Models\SiteSetting;
 
 class ContactController extends Controller
 {
@@ -47,9 +48,30 @@ class ContactController extends Controller
             'privacy_agreement' => true
         ]));
 
-        // Send email notification to admin (configure ADMIN_EMAIL in .env)
+        // Prepare email notification data
         try {
             $adminEmail = env('ADMIN_EMAIL', 'omargamal@gmail.com');
+            
+            // Try to load SMTP and recipient settings from SiteSetting if available
+            $settings = SiteSetting::first();
+            if ($settings) {
+                if (!empty($settings->admin_email)) {
+                    $adminEmail = $settings->admin_email;
+                }
+                // Dynamically override mail configuration if SMTP settings exist
+                if (!empty($settings->mail_host) && !empty($settings->mail_port)) {
+                    config([
+                        'mail.default' => 'smtp',
+                        'mail.mailers.smtp.host' => $settings->mail_host,
+                        'mail.mailers.smtp.port' => (int) $settings->mail_port,
+                        'mail.mailers.smtp.encryption' => $settings->mail_encryption ?: null,
+                        'mail.mailers.smtp.username' => $settings->mail_username ?: null,
+                        'mail.mailers.smtp.password' => $settings->mail_password ?: null,
+                        'mail.from.address' => $settings->mail_from_address ?: env('MAIL_FROM_ADDRESS'),
+                        'mail.from.name' => $settings->mail_from_name ?: env('MAIL_FROM_NAME', config('app.name')),
+                    ]);
+                }
+            }
 
             $mailData = [
                 'name' => $validated['name'],
@@ -60,7 +82,6 @@ class ContactController extends Controller
                 'subject' => 'New Contact Form Submission',
                 'submitted_at' => now(),
             ];
-
 
             // Build minimal inline HTML without relying on a Blade email view
             $html = '<div style="font-family:Arial,sans-serif;line-height:1.6;color:#222">'
