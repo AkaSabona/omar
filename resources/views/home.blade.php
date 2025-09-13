@@ -347,6 +347,23 @@
         margin-top: 0;
         padding-top: 0;
     }
+
+    /* Soft Popup Styles for Portfolio */
+    .soft-popup { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 2000; }
+    .soft-popup.show { display: flex; }
+    .soft-popup-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); opacity: 0; transition: opacity 200ms ease; }
+    .soft-popup.show .soft-popup-backdrop { opacity: 1; }
+    .soft-popup-content { position: relative; z-index: 1; background: rgba(17,24,39,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; width: min(90vw, 1100px); max-height: 90vh; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); transform: translateY(20px) scale(0.98); opacity: 0; transition: transform 250ms ease, opacity 250ms ease; }
+    .soft-popup.show .soft-popup-content { transform: translateY(0) scale(1); opacity: 1; }
+    .soft-popup-body { display: flex; gap: 16px; padding: 16px; align-items: stretch; }
+    .soft-popup-body img { display: block; max-width: 65%; height: auto; object-fit: contain; background: #0b0f14; border-radius: 12px; }
+    .soft-popup-text { flex: 1; min-width: 0; color: #e5e7eb; overflow: auto; }
+    #softPopupTitle { margin: 0 0 8px; color: #fff; font-weight: 600; }
+    #softPopupDescription { white-space: pre-wrap; line-height: 1.5; }
+    .soft-popup-close { position: absolute; top: 8px; right: 12px; width: 36px; height: 36px; display: grid; place-items: center; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; color: #fff; font-size: 22px; cursor: pointer; transition: transform 150ms ease, background 150ms ease, opacity 150ms ease; opacity: 0.9; }
+    .soft-popup-close:hover { background: rgba(255,255,255,0.18); transform: scale(1.05); opacity: 1; }
+    @media (max-width: 992px) { .soft-popup-content { width: 94vw; } .soft-popup-body img { max-width: 60%; } }
+    @media (max-width: 768px) { .soft-popup-content { width: 96vw; max-height: 92vh; } .soft-popup-body { flex-direction: column; } .soft-popup-body img { max-width: 100%; width: 100%; } }
 </style>
 @endpush
 
@@ -519,6 +536,108 @@
                 </div>
             </div>
         </div>
+        <style>
+              /* Hide the old portfolio carousel when a cards grid is rendered before it */
+              .portfolio-cards-grid + .portfolio-carousel-container { display: none !important; }
+              /* Uniform card sizes in portfolio grid */
+              .portfolio-cards-grid .col { display: flex; }
+              .portfolio-cards-grid .card { display: flex; flex-direction: column; height: 100%; width: 100%; transition: transform .25s ease, box-shadow .25s ease; }
+              .portfolio-cards-grid .card:hover { transform: translateY(-6px); box-shadow: 0 10px 24px rgba(0,0,0,.12), 0 6px 12px rgba(0,0,0,.08); }
+              .portfolio-cards-grid .card-img-top { height: 180px; object-fit: cover; transition: transform .45s ease, filter .45s ease; }
+              .portfolio-cards-grid .card:hover .card-img-top { transform: scale(1.05); }
+              .portfolio-cards-grid .card-body { flex: 1 1 auto; }
+              .portfolio-cards-grid .card-title { margin-bottom: .5rem; }
+              .portfolio-cards-grid .card-text { }
+              /* Fade in more description on hover */
+              .portfolio-cards-grid .card-text-short { transition: opacity .2s ease, max-height .2s ease; }
+              .portfolio-cards-grid .card-text-full { opacity: 0; max-height: 0; transition: opacity .25s ease, max-height .25s ease; margin-top: .25rem; }
+              .portfolio-cards-grid .card:hover .card-text-full { opacity: 1; max-height: 10rem; }
+              .portfolio-cards-grid .card:hover .card-text-short { opacity: 1; max-height: none; }
+          </style>
+         <style>
+              /* Flip card effect for portfolio cards */
+              .portfolio-flip-card { perspective: 1000px; }
+.portfolio-flip-card .flip-inner { position: relative; width: 100%; height: 200px; transform-style: preserve-3d; transition: transform .6s ease; border-top-left-radius: .375rem; border-top-right-radius: .375rem; overflow: hidden; }
+.portfolio-flip-card:hover .flip-inner { transform: rotateY(180deg); }
+.portfolio-flip-card .flip-front, .portfolio-flip-card .flip-back { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; transition: opacity .3s ease; }
+ .portfolio-flip-card .flip-front { opacity: 1; z-index: 2; }
+ .portfolio-flip-card .flip-front img, .portfolio-flip-card .flip-front .img-placeholder { width: 100%; height: 100%; object-fit: cover; display: block; background:#0b1220; }
+ .portfolio-flip-card .flip-back { transform: rotateY(180deg); display: flex; align-items: flex-start; justify-content: flex-start; padding: 1rem; text-align: left; opacity: 0; z-index: 10; position: relative; }
+ .portfolio-flip-card .flip-back .card-title, .portfolio-flip-card .flip-back .card-text { color: #000000 !important; z-index: 15; position: relative; font-weight: bold; }
+ .portfolio-flip-card:hover .flip-front { opacity: 0; z-index: 0; }
+ .portfolio-flip-card:hover .flip-back { opacity: 1; z-index: 20; }
+.portfolio-flip-card:hover .card-img-top { transform: none !important; }
+.portfolio-flip-card .flip-back .card-title { margin-bottom: .5rem; }
+.portfolio-flip-card .flip-back .card-text { }
+          </style>
+          <!-- Portfolio Cards Grid (replaces carousel visually) -->
+        @if($portfolioCards && $portfolioCards->count() > 0)
+        <div class="portfolio-cards-grid mb-5">
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
+                @foreach($portfolioCards as $card)
+<div class="col">
+    <div class="card h-100 shadow-sm portfolio-flip-card">
+        <div class="flip-inner">
+            <!-- Front side (image) -->
+            <div class="flip-front">
+                @if($card->image)
+                    <img class="card-img-top" src="{{ asset('storage/' . $card->image) }}" alt="{{ $card->title }}">
+                @else
+                    <div class="img-placeholder bg-light d-flex align-items-center justify-content-center">
+                        <span class="text-muted">{{ $card->title }}</span>
+                    </div>
+                @endif
+                <!-- Move card footer to front side -->
+                <div class="card-footer">
+                    <small class="text-muted">Last updated {{ $card->updated_at ? $card->updated_at->diffForHumans() : '' }}</small>
+                </div>
+            </div>
+            
+            <!-- Back side (content) -->
+            <div class="flip-back">
+                <div class="card-body"> <!-- Add card-body for proper spacing -->
+                    <h5 class="card-title">{{ $card->title }}</h5>
+                    <p class="card-text">{{ \Illuminate\Support\Str::words($card->description, 60, '...') }}</p>
+                </div>
+            </div>
+             </div>
+
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated {{ $card->updated_at ? $card->updated_at->diffForHumans() : '' }}</small>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @else
+        <div class="portfolio-cards-grid mb-5">
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
+                <div class="col">
+                    <div class="card h-100 shadow-sm portfolio-flip-card">
+                        <div class="flip-inner">
+                            <div class="flip-front">
+                                <div class="img-placeholder bg-light d-flex align-items-center justify-content-center">
+                                    <span class="text-muted">No Portfolio Cards</span>
+                                </div>
+                            </div>
+                            <div class="flip-back">
+                                <div>
+                                    <h5 class="card-title">No Portfolio Cards</h5>
+                                    <p class="card-text">Please add portfolio cards from the admin dashboard. You can create new portfolio cards in the admin dashboard with title, image and description. Once added, cards will appear here with hover animations.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body d-none d-lg-block" aria-hidden="true"></div>
+                        <div class="card-footer">
+                            <small class="text-muted">&nbsp;</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <!-- Portfolio Showcase Carousel -->
         <div class="portfolio-carousel-container">
             <div id="portfolioCarousel" class="portfolio-carousel">
@@ -542,15 +661,15 @@
                                         <div class="{{ $positionClass }} @if($positionClass !== 'portfolio-center-item') portfolio-side-item @endif">
                                             <div class="portfolio-showcase-card">
                                                 <div class="portfolio-image">
-                                                    <div class="portfolio-overlay">
-                                                        <h4 class="portfolio-title">{{ $card->title }}</h4>
-                                                        <p class="portfolio-description">{{ $card->description }}</p>
-                                                    </div>
                                                     @if($card->image)
                                                         <img src="{{ asset('storage/' . $card->image) }}" alt="{{ $card->title }}" class="portfolio-img">
                                                     @else
                                                         <div class="portfolio-bg {{ $card->background_class ?? 'bg-gradient-primary' }}"></div>
                                                     @endif
+                                                    <div class="portfolio-overlay" style="z-index: 3;">
+                                                        <h4 class="portfolio-title">{{ $card->title }}</h4>
+                                                        <p class="portfolio-description" data-full="{{ $card->description }}">{{ \Illuminate\Support\Str::words($card->description, 10, '...') }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -600,6 +719,21 @@
         </div>
     </div>
 </section>
+
+<!-- Soft Popup for Portfolio -->
+<div id="portfolioSoftPopup" class="soft-popup" aria-hidden="true">
+  <div class="soft-popup-backdrop" tabindex="-1"></div>
+  <div class="soft-popup-content" role="dialog" aria-modal="true" aria-labelledby="softPopupTitle">
+    <button type="button" class="soft-popup-close" aria-label="Close">&times;</button>
+    <div class="soft-popup-body">
+      <img id="softPopupImage" src="" alt="" />
+      <div class="soft-popup-text">
+        <h4 id="softPopupTitle"></h4>
+        <p id="softPopupDescription"></p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Professional Experience Timeline with Astronaut Background -->
 <section id="professional-experience" class="experience-timeline-section section-padding astronaut-section">
@@ -1470,10 +1604,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const allItems = wrapper.querySelectorAll('.portfolio-side-far-left, .portfolio-side-left, .portfolio-center-item, .portfolio-side-right, .portfolio-side-far-right');
             allItems.forEach(item => {
-                // Add fade-out effect
+                // Add fade-out effect (opacity only, no transform to avoid movement)
                 item.style.opacity = '0.3';
-                item.style.transform = item.style.transform + ' scale(0.95)';
-                item.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+                item.style.transition = 'opacity 0.2s ease';
             });
         });
         
@@ -1514,11 +1647,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     const allItems = wrapper.querySelectorAll('.portfolio-side-far-left, .portfolio-side-left, .portfolio-center-item, .portfolio-side-right, .portfolio-side-far-right');
                     allItems.forEach(item => {
-                        // Fade back in with scale animation
-                        item.style.opacity = '';
-                        item.style.transform = item.style.transform.replace(' scale(0.95)', '');
-                        item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    });
+                            // Fade back in (opacity only)
+                            item.style.opacity = '';
+                            item.style.transition = 'opacity 0.3s ease';
+                        });
                 });
                 
                 // Reset transitions after animation
@@ -1539,6 +1671,13 @@ document.addEventListener('DOMContentLoaded', function() {
         currentPortfolioIndex = centerIndex;
     }
     
+    function truncateWords(str, n) {
+        if (!str) return '';
+        const words = str.toString().trim().split(/\s+/);
+        if (words.length <= n) return str;
+        return words.slice(0, n).join(' ') + '...';
+    }
+
     function updatePortfolioItem(element, itemData) {
         if (!element || !itemData) return;
         
@@ -1549,7 +1688,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const cardElement = element.querySelector('.portfolio-showcase-card');
         
         if (titleElement) titleElement.textContent = itemData.title;
-        if (descElement) descElement.textContent = itemData.description;
+        if (descElement) {
+            descElement.setAttribute('data-full', itemData.description || '');
+            descElement.textContent = truncateWords(itemData.description || '', 10);
+        }
         
         // Handle image or background
         if (itemData.image && itemData.image !== '') {
@@ -2041,6 +2183,101 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Soft Popup Logic for Portfolio Cards
+    (function(){
+        const popup = document.getElementById('portfolioSoftPopup');
+        if (!popup) return;
+        const backdrop = popup.querySelector('.soft-popup-backdrop');
+        const closeBtn = popup.querySelector('.soft-popup-close');
+        const imgEl = document.getElementById('softPopupImage');
+        const titleEl = document.getElementById('softPopupTitle');
+        const descEl = document.getElementById('softPopupDescription');
+
+        let hoverTimer = null;
+        let pinnedOpen = false;
+        const HOVER_DELAY = 200; // ms before opening on hover
+
+        function openPopup(data){
+            if (!data) return;
+            // Set content
+            if (data.img) { imgEl.src = data.img; imgEl.style.display = 'block'; }
+            else { imgEl.removeAttribute('src'); imgEl.style.display = 'none'; }
+            titleEl.textContent = data.title || '';
+            descEl.textContent = data.full || '';
+            popup.classList.add('show');
+            popup.setAttribute('aria-hidden','false');
+        }
+        function closePopup(){
+            popup.classList.remove('show');
+            popup.setAttribute('aria-hidden','true');
+            pinnedOpen = false;
+        }
+
+        function getCardData(card){
+            const wrap = card.closest('.portfolio-showcase-card');
+            if (!wrap) return null;
+            const img = wrap.querySelector('img.portfolio-img');
+            const title = wrap.querySelector('.portfolio-title');
+            const desc = wrap.querySelector('.portfolio-description');
+            return {
+                img: img ? img.src : null,
+                title: title ? title.textContent.trim() : '',
+                full: desc ? (desc.getAttribute('data-full') || desc.textContent.trim()) : ''
+            };
+        }
+
+        const cards = document.querySelectorAll('.portfolio-showcase-card .portfolio-image');
+        let currentCard = null;
+
+        // Click-only behavior: open popup only when clicking the centered banner (not while the banner is clickable for carousel navigation or has its own link)
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                const parentItem = card.closest('.portfolio-side-item, .portfolio-center-item');
+                const hasAnchorLink = !!card.closest('a[href]');
+
+                // Do not open the popup for any carousel banner (side or center) or if it has its own link
+                if (parentItem || hasAnchorLink) {
+                    // Allow the click to propagate to existing handlers (carousel navigation or link)
+                    return;
+                }
+
+                e.preventDefault();
+                e.stopPropagation();
+                // Toggle if the same card is already open
+                if (popup.classList.contains('show') && currentCard === card) {
+                    closePopup();
+                    return;
+                }
+                pinnedOpen = true; // treat as pinned when opened via click/tap
+                currentCard = card;
+                const data = getCardData(card);
+                openPopup(data);
+            });
+        });
+
+        // When closing, clear current card
+        const _origClose = closePopup;
+        closePopup = function(){
+            _origClose();
+            currentCard = null;
+        };
+
+        // Interactions for closing
+        [backdrop, closeBtn].forEach(el => el && el.addEventListener('click', (e)=>{
+            e.preventDefault();
+            closePopup();
+        }));
+
+        // ESC to close
+        document.addEventListener('keydown', (e)=>{
+            if (e.key === 'Escape') closePopup();
+        });
+
+        // Keep open while hovering over the popup
+        popup.addEventListener('mouseenter', () => clearTimeout(hoverTimer));
+        popup.addEventListener('mouseleave', () => { if (!pinnedOpen) closePopup(); });
+    })();
 
 });
 </script>
