@@ -134,7 +134,7 @@
                             <div class="col-12">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="avg_increase" name="avg_increase" value="{{ $siteSettings->avg_increase ?? '86%' }}" required>
-                                    <label for="avg_increase"><i class="fas fa-chart-line me-2"></i>Avg. Increase</label>
+                                    <label for="avg_increase"><i class="fas fa-chart-line me-2"></i>Clients</label>
                                 </div>
                             </div>
                             <div class="col-12">

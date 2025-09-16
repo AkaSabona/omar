@@ -46,6 +46,7 @@
                                         <th width="50">Order</th>
                                         <th>Title</th>
                                         <th>Description</th>
+                                        <th>Video URL</th>
                                         <th width="100">Image</th>
                                         <th width="100">Status</th>
                                         <th width="150">Actions</th>
@@ -61,6 +62,13 @@
                                                 <strong>{{ $card->title }}</strong>
                                             </td>
                                             <td>{{ Str::limit($card->description, 50) }}</td>
+                                            <td>
+                                                @if($card->youtube_url)
+                                                    <a href="{{ $card->youtube_url }}" target="_blank">{{ Str::limit($card->youtube_url, 30) }}</a>
+                                                @else
+                                                    <span class="text-muted">—</span>
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if($card->image)
                                                     <img src="{{ asset('storage/' . $card->image) }}" alt="{{ $card->title }}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
@@ -135,6 +143,11 @@
                                 <label for="description" class="form-label">Description</label>
                                 <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
                             </div>
+                            <div class="col-12">
+                                <label for="youtube_url" class="form-label">YouTube Video URL (optional)</label>
+                                <input type="url" class="form-control" id="youtube_url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=...">
+                                <div class="form-text">Provide full YouTube URL or share link. We'll extract the video ID automatically.</div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -178,6 +191,10 @@
                                 <label for="edit_description" class="form-label">Description</label>
                                 <textarea class="form-control" id="edit_description" name="description" rows="4" required></textarea>
                             </div>
+                            <div class="col-12">
+                                <label for="edit_youtube_url" class="form-label">YouTube Video URL (optional)</label>
+                                <input type="url" class="form-control" id="edit_youtube_url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=...">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -196,11 +213,15 @@ function editCard(cardId) {
     const cardElement = document.querySelector(`[data-card-id="${cardId}"]`);
     const title = cardElement.querySelector('strong').textContent.trim();
     const description = cardElement.querySelectorAll('td')[2].textContent.trim();
+    const youtubeCell = cardElement.querySelectorAll('td')[3];
+    const youtubeLink = youtubeCell.querySelector('a');
+    const youtubeUrl = youtubeLink ? youtubeLink.getAttribute('href') : '';
     const imageElement = cardElement.querySelector('img');
     
     // Populate the edit form
     document.getElementById('edit_title').value = title;
     document.getElementById('edit_description').value = description;
+    document.getElementById('edit_youtube_url').value = youtubeUrl;
     document.getElementById('editCardForm').action = `/admin/portfolio-cards/${cardId}`;
     
     // Show current image if exists

@@ -199,7 +199,8 @@ class AdminController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:25600'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:25600',
+            'youtube_url' => 'nullable|url'
         ]);
 
         $maxPosition = PortfolioCard::max('position') ?? 0;
@@ -215,6 +216,7 @@ class AdminController extends Controller
             'description' => $request->description,
             'background_class' => 'custom-bg', // Default background class
             'image' => $imagePath,
+            'youtube_url' => $request->youtube_url,
             'position' => $maxPosition + 1,
             'is_active' => true
         ]);
@@ -228,7 +230,8 @@ class AdminController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:25600',
-            'is_active' => 'sometimes|in:0,1'
+            'is_active' => 'sometimes|in:0,1',
+            'youtube_url' => 'nullable|url'
         ]);
 
         $portfolioCard = PortfolioCard::findOrFail($id);
@@ -236,6 +239,7 @@ class AdminController extends Controller
         $updateData = [
             'title' => $request->title,
             'description' => $request->description,
+            'youtube_url' => $request->youtube_url,
         ];
         
         // Handle image upload

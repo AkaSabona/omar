@@ -364,6 +364,407 @@
     .soft-popup-close:hover { background: rgba(255,255,255,0.18); transform: scale(1.05); opacity: 1; }
     @media (max-width: 992px) { .soft-popup-content { width: 94vw; } .soft-popup-body img { max-width: 60%; } }
     @media (max-width: 768px) { .soft-popup-content { width: 96vw; max-height: 92vh; } .soft-popup-body { flex-direction: column; } .soft-popup-body img { max-width: 100%; width: 100%; } }
+    
+    /* Banner Slider Styles */
+    .banner-slider-section {
+        background: transparent; /* remove background */
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .banner-slider-section::before { display: none; }
+
+    .banner-slider-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 0; /* full-bleed, outside rounded background */
+        box-shadow: none; /* avoid blurred/glassy look */
+        padding: 0;
+        width: 100vw; /* escape Bootstrap container width */
+        max-width: none;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        z-index: 50; /* sit above any background blur */
+        background: transparent;
+    }
+
+    .banner-slider {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .banner-track {
+        display: flex;
+        transition: transform 0.5s ease;
+        gap: 12px; /* small space between banners */
+        padding: 0;
+        width: max-content; /* track fits its children so we can clamp transforms precisely */
+        will-change: transform;
+    }
+
+    .banner-item {
+        /* Card base size; JS calculates exact step including gap */
+        flex: 0 0 330px;
+        width: 330px;
+        min-width: 330px; /* avoid forcing extra width that causes half-cuts */
+        height: 250px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .banner-item:hover {
+        transform: scale(1.05);
+    }
+
+    .banner-card {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        background: white;
+        transform: translateY(0);
+        transition: all 0.3s ease;
+    }
+
+    .banner-item:hover .banner-card {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .banner-image {
+        width: 100%;
+        height: 100%;
+        max-height: 250px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .banner-item:hover .banner-image {
+        transform: scale(1.05);
+    }
+
+    .banner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .banner-item:hover .banner-overlay {
+        opacity: 1;
+    }
+
+    .play-button {
+        width: 80px;
+        height: 80px;
+        background: rgba(255,255,255,0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .banner-item:hover .play-button {
+        background: rgba(255,255,255,1);
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .play-button i {
+        color: #667eea;
+        font-size: 32px;
+        margin-left: 4px;
+    }
+
+    .banner-title {
+        color: white;
+        text-align: center;
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .banner-slider-btn,
+    .banner-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.9);
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .banner-slider-btn:hover,
+    .banner-btn:hover {
+        background: white;
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .banner-prev { left: 12px; }
+    .banner-next { right: 12px; }
+
+    /* Responsive adjustments for banner slider */
+    @media (max-width: 1200px) {
+        /* keep multi-card layout; JS will compute items per view */
+        .banner-item { flex: 0 0 330px; min-width: 330px; }
+    }
+
+    @media (max-width: 992px) {
+        .banner-item { flex: 0 0 300px; min-width: 300px; }
+        .banner-prev { left: 16px; }
+        .banner-next { right: 16px; }
+    }
+
+    @media (max-width: 768px) {
+        .banner-item { flex: 0 0 260px; min-width: 260px; }
+        .banner-slider-btn { width: 40px; height: 40px; }
+        .banner-prev { left: 12px; }
+        .banner-next { right: 12px; }
+        .banner-image { height: 220px; }
+        .play-button { width: 64px; height: 64px; }
+        .play-button i { font-size: 28px; }
+    }
+
+    @media (max-width: 576px) {
+        .banner-item { flex: 0 0 85vw; min-width: 85vw; }
+        .banner-image { height: 200px; }
+        .play-button { width: 56px; height: 56px; }
+        .play-button i { font-size: 26px; }
+    }
+
+    .banner-slider-btn i {
+        color: #667eea;
+        font-size: 18px;
+    }
+
+    /* Floating Elements Integration with Banner Slider */
+    .banner-slider-container .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 5;
+    }
+
+    .banner-slider-container .floating-element {
+        position: absolute;
+        border-radius: 50%;
+        animation: bannerFloat 8s ease-in-out infinite;
+    }
+
+    .banner-slider-container .floating-element.element-1 {
+        width: 6px;
+        height: 6px;
+        background: #667eea;
+        top: 15%;
+        left: 5%;
+        animation-delay: 0s;
+        box-shadow: 0 0 15px rgba(102, 126, 234, 0.6);
+    }
+
+    .banner-slider-container .floating-element.element-2 {
+        width: 8px;
+        height: 8px;
+        background: #764ba2;
+        top: 70%;
+        left: 85%;
+        animation-delay: 2s;
+        box-shadow: 0 0 20px rgba(118, 75, 162, 0.6);
+    }
+
+    .banner-slider-container .floating-element.element-3 {
+        width: 4px;
+        height: 4px;
+        background: #f093fb;
+        top: 85%;
+        left: 15%;
+        animation-delay: 4s;
+        box-shadow: 0 0 12px rgba(240, 147, 251, 0.6);
+    }
+
+    .banner-slider-container .floating-element.element-4 {
+        width: 7px;
+        height: 7px;
+        background: #4facfe;
+        top: 25%;
+        left: 75%;
+        animation-delay: 1s;
+        box-shadow: 0 0 18px rgba(79, 172, 254, 0.6);
+    }
+
+    .banner-slider-container .floating-element.element-5 {
+        width: 5px;
+        height: 5px;
+        background: #43e97b;
+        top: 50%;
+        left: 50%;
+        animation-delay: 3s;
+        box-shadow: 0 0 15px rgba(67, 233, 123, 0.6);
+    }
+
+    @keyframes bannerFloat {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 0.7;
+        }
+        25% {
+            transform: translateY(-20px) rotate(90deg);
+            opacity: 1;
+        }
+        50% {
+            transform: translateY(-10px) rotate(180deg);
+            opacity: 0.8;
+        }
+        75% {
+            transform: translateY(-25px) rotate(270deg);
+            opacity: 1;
+        }
+    }
+
+    /* YouTube Popup Styles */
+    .youtube-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .youtube-popup.show {
+        display: flex;
+    }
+
+    .youtube-popup-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        backdrop-filter: blur(5px);
+    }
+
+    .youtube-popup-content {
+        position: relative;
+        background: white;
+        border-radius: 15px;
+        max-width: 90vw;
+        max-height: 90vh;
+        width: 800px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        overflow: hidden;
+    }
+
+    .youtube-popup-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 20px;
+        z-index: 10;
+        transition: background 0.3s ease;
+    }
+
+    .youtube-popup-close:hover {
+        background: rgba(0,0,0,0.9);
+    }
+
+    .youtube-popup-body {
+        padding: 20px;
+    }
+
+    .youtube-popup-body h4 {
+        margin: 0 0 15px 0;
+        color: #333;
+        font-size: 18px;
+    }
+
+    .youtube-video-container {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .youtube-video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .banner-item {
+            flex: 0 0 calc(50% - 10px);
+        }
+        
+        .banner-image {
+            height: 150px;
+        }
+        
+        .youtube-popup-content {
+            width: 95vw;
+            margin: 20px;
+        }
+        
+        .banner-slider-btn {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .banner-prev {
+            left: -20px;
+        }
+        
+        .banner-next {
+            right: -20px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .banner-item {
+            flex: 0 0 calc(100% - 10px);
+        }
+    }
 </style>
 @endpush
 
@@ -371,13 +772,6 @@
 <!-- Hero Section -->
 <section class="modern-hero-section">
     <div class="hero-background">
-        <div class="floating-elements">
-            <div class="floating-element element-1"></div>
-            <div class="floating-element element-2"></div>
-            <div class="floating-element element-3"></div>
-            <div class="floating-element element-4"></div>
-            <div class="floating-element element-5"></div>
-        </div>
     </div>
     <div class="container">
         <div class="row align-items-center min-vh-100">
@@ -402,7 +796,7 @@
                             <div class="col-4">
                                 <div class="stat-item scroll-scale">
                                     <div class="stat-number">{{ $siteSettings->avg_increase ?? '86%' }}</div>
-                                    <div class="stat-label">Avg. Increase</div>
+                                    <div class="stat-label">Clients</div>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -516,10 +910,10 @@
         <div class="portfolio-pattern"></div>
         <div class="portfolio-gradient-overlay"></div>
         <div class="floating-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-            <div class="shape shape-4"></div>
+            <div class="shape shape-1" style="transform: translateY(5.5px) rotate(2.75deg);"></div>
+            <div class="shape shape-2" style="transform: translateY(8.25px) rotate(4.125deg);"></div>
+            <div class="shape shape-3" style="transform: translateY(11px) rotate(5.5deg);"></div>
+            <div class="shape shape-4" style="transform: translateY(13.75px) rotate(6.875deg);"></div>
         </div>
     </div>
     
@@ -536,204 +930,74 @@
                 </div>
             </div>
         </div>
-        <style>
-              /* Hide the old portfolio carousel when a cards grid is rendered before it */
-              .portfolio-cards-grid + .portfolio-carousel-container { display: none !important; }
-              /* Uniform card sizes in portfolio grid */
-              .portfolio-cards-grid .col { display: flex; }
-              .portfolio-cards-grid .card { display: flex; flex-direction: column; height: 100%; width: 100%; transition: transform .25s ease, box-shadow .25s ease; }
-              .portfolio-cards-grid .card:hover { transform: translateY(-6px); box-shadow: 0 10px 24px rgba(0,0,0,.12), 0 6px 12px rgba(0,0,0,.08); }
-              .portfolio-cards-grid .card-img-top { height: 180px; object-fit: cover; transition: transform .45s ease, filter .45s ease; }
-              .portfolio-cards-grid .card:hover .card-img-top { transform: scale(1.05); }
-              .portfolio-cards-grid .card-body { flex: 1 1 auto; }
-              .portfolio-cards-grid .card-title { margin-bottom: .5rem; }
-              .portfolio-cards-grid .card-text { }
-              /* Fade in more description on hover */
-              .portfolio-cards-grid .card-text-short { transition: opacity .2s ease, max-height .2s ease; }
-              .portfolio-cards-grid .card-text-full { opacity: 0; max-height: 0; transition: opacity .25s ease, max-height .25s ease; margin-top: .25rem; }
-              .portfolio-cards-grid .card:hover .card-text-full { opacity: 1; max-height: 10rem; }
-              .portfolio-cards-grid .card:hover .card-text-short { opacity: 1; max-height: none; }
-          </style>
-         <style>
-              /* Flip card effect for portfolio cards */
-              .portfolio-flip-card { perspective: 1000px; }
-.portfolio-flip-card .flip-inner { position: relative; width: 100%; height: 200px; transform-style: preserve-3d; transition: transform .6s ease; border-top-left-radius: .375rem; border-top-right-radius: .375rem; overflow: hidden; }
-.portfolio-flip-card:hover .flip-inner { transform: rotateY(180deg); }
-.portfolio-flip-card .flip-front, .portfolio-flip-card .flip-back { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; transition: opacity .3s ease; }
- .portfolio-flip-card .flip-front { opacity: 1; z-index: 2; }
- .portfolio-flip-card .flip-front img, .portfolio-flip-card .flip-front .img-placeholder { width: 100%; height: 100%; object-fit: cover; display: block; background:#0b1220; }
- .portfolio-flip-card .flip-back { transform: rotateY(180deg); display: flex; align-items: flex-start; justify-content: flex-start; padding: 1rem; text-align: left; opacity: 0; z-index: 10; position: relative; }
- .portfolio-flip-card .flip-back .card-title, .portfolio-flip-card .flip-back .card-text { color: #000000 !important; z-index: 15; position: relative; font-weight: bold; }
- .portfolio-flip-card:hover .flip-front { opacity: 0; z-index: 0; }
- .portfolio-flip-card:hover .flip-back { opacity: 1; z-index: 20; }
-.portfolio-flip-card:hover .card-img-top { transform: none !important; }
-.portfolio-flip-card .flip-back .card-title { margin-bottom: .5rem; }
-.portfolio-flip-card .flip-back .card-text { }
-          </style>
-          <!-- Portfolio Cards Grid (replaces carousel visually) -->
-        @if($portfolioCards && $portfolioCards->count() > 0)
-        <div class="portfolio-cards-grid mb-5">
-            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
-                @foreach($portfolioCards as $card)
-<div class="col">
-    <div class="card h-100 shadow-sm portfolio-flip-card">
-        <div class="flip-inner">
-            <!-- Front side (image) -->
-            <div class="flip-front">
-                @if($card->image)
-                    <img class="card-img-top" src="{{ asset('storage/' . $card->image) }}" alt="{{ $card->title }}">
-                @else
-                    <div class="img-placeholder bg-light d-flex align-items-center justify-content-center">
-                        <span class="text-muted">{{ $card->title }}</span>
-                    </div>
-                @endif
-                <!-- Move card footer to front side -->
-                <div class="card-footer">
-                    <small class="text-muted">Last updated {{ $card->updated_at ? $card->updated_at->diffForHumans() : '' }}</small>
+
+        <!-- Banner Slider inside Featured Client Work -->
+        <div class="banner-slider-container mb-5">
+            <div class="banner-slider">
+                <div class="banner-track">
+                    @php
+                        $videoCards = isset($portfolioCards) ? $portfolioCards->filter(function($c){ return !empty($c->youtube_id); }) : collect();
+                    @endphp
+
+                    @forelse($videoCards as $card)
+                        <div class="banner-item" data-youtube="{{ $card->youtube_id }}" data-title="{{ $card->title }}">
+                             <div class="banner-card">
+                                 <img src="{{ $card->image ? asset('storage/' . $card->image) : asset('images/me.png') }}" alt="{{ $card->title }}" class="banner-image">
+                                 <div class="banner-overlay">
+                                     <div class="play-button">
+                                         <i class="fas fa-play"></i>
+                                     </div>
+                                     <h5 class="banner-title">{{ $card->title }}</h5>
+                                 </div>
+                             </div>
+                         </div>
+                    @empty
+                        <!-- Fallback item to keep slider functional when there are no videos yet -->
+                        <div class="banner-item" data-youtube="dQw4w9WgXcQ" data-title="Sample Video">
+                            <div class="banner-card">
+                                <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Sample Video" class="banner-image">
+                                <div class="banner-overlay">
+                                    <div class="play-button">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                    <h5 class="banner-title">Sample Video</h5>
+                                </div>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
             </div>
             
-            <!-- Back side (content) -->
-            <div class="flip-back">
-                <div class="card-body"> <!-- Add card-body for proper spacing -->
-                    <h5 class="card-title">{{ $card->title }}</h5>
-                    <p class="card-text">{{ \Illuminate\Support\Str::words($card->description, 60, '...') }}</p>
-                </div>
-            </div>
-             </div>
-
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated {{ $card->updated_at ? $card->updated_at->diffForHumans() : '' }}</small>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
+            <!-- Navigation buttons -->
+            <button class="banner-btn banner-prev" onclick="moveBannerSlider(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="banner-btn banner-next" onclick="moveBannerSlider(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
-        @else
-        <div class="portfolio-cards-grid mb-5">
-            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
-                <div class="col">
-                    <div class="card h-100 shadow-sm portfolio-flip-card">
-                        <div class="flip-inner">
-                            <div class="flip-front">
-                                <div class="img-placeholder bg-light d-flex align-items-center justify-content-center">
-                                    <span class="text-muted">No Portfolio Cards</span>
-                                </div>
-                            </div>
-                            <div class="flip-back">
-                                <div>
-                                    <h5 class="card-title">No Portfolio Cards</h5>
-                                    <p class="card-text">Please add portfolio cards from the admin dashboard. You can create new portfolio cards in the admin dashboard with title, image and description. Once added, cards will appear here with hover animations.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body d-none d-lg-block" aria-hidden="true"></div>
-                        <div class="card-footer">
-                            <small class="text-muted">&nbsp;</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
-
-        <!-- Portfolio Showcase Carousel -->
-        <div class="portfolio-carousel-container">
-            <div id="portfolioCarousel" class="portfolio-carousel">
-                <div class="portfolio-carousel-inner">
-                    @if($portfolioCards && $portfolioCards->count() > 0)
-                        @php
-                            $cardsPerSlide = 5;
-                            $totalSlides = ceil($portfolioCards->count() / $cardsPerSlide);
-                            $positions = ['portfolio-side-far-left', 'portfolio-side-left', 'portfolio-center-item', 'portfolio-side-right', 'portfolio-side-far-right'];
-                        @endphp
-                        
-                        @for($slide = 0; $slide < $totalSlides; $slide++)
-                            <div class="portfolio-slide {{ $slide === 0 ? 'active' : '' }}">
-                                <div class="portfolio-carousel-wrapper">
-                                    @for($i = 0; $i < $cardsPerSlide; $i++)
-                                        @php
-                                            $cardIndex = ($slide * $cardsPerSlide + $i) % $portfolioCards->count();
-                                            $card = $portfolioCards[$cardIndex];
-                                            $positionClass = $positions[$i] ?? 'portfolio-center-item';
-                                        @endphp
-                                        <div class="{{ $positionClass }} @if($positionClass !== 'portfolio-center-item') portfolio-side-item @endif">
-                                            <div class="portfolio-showcase-card">
-                                                <div class="portfolio-image">
-                                                    @if($card->image)
-                                                        <img src="{{ asset('storage/' . $card->image) }}" alt="{{ $card->title }}" class="portfolio-img">
-                                                    @else
-                                                        <div class="portfolio-bg {{ $card->background_class ?? 'bg-gradient-primary' }}"></div>
-                                                    @endif
-                                                    <div class="portfolio-overlay" style="z-index: 3;">
-                                                        <h4 class="portfolio-title">{{ $card->title }}</h4>
-                                                        <p class="portfolio-description" data-full="{{ $card->description }}">{{ \Illuminate\Support\Str::words($card->description, 10, '...') }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endfor
-                                </div>
-                            </div>
-                        @endfor
-                    @else
-                        <!-- Fallback content if no cards are available -->
-                        <div class="portfolio-slide active">
-                            <div class="portfolio-carousel-wrapper">
-                                <div class="portfolio-center-item">
-                                    <div class="portfolio-showcase-card">
-                                        <div class="portfolio-image">
-                                            <div class="portfolio-overlay">
-                                                <h4 class="portfolio-title">No Portfolio Cards</h4>
-                                                <p class="portfolio-description">Please add portfolio cards from the admin dashboard.</p>
-                                            </div>
-                                            <div class="portfolio-bg bg-gradient-primary"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-                
-                <!-- Carousel Controls -->
-                <button class="carousel-control-prev" type="button">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-                
-                <!-- Custom Portfolio Navigation Info -->
-                <div class="portfolio-navigation-info text-center mt-4">
-                    <small class="text-muted">
-                    </small>
-                </div>
-            </div>
-        </div>
-
         
         </div>
     </div>
 </section>
 
-<!-- Soft Popup for Portfolio -->
-<div id="portfolioSoftPopup" class="soft-popup" aria-hidden="true">
-  <div class="soft-popup-backdrop" tabindex="-1"></div>
-  <div class="soft-popup-content" role="dialog" aria-modal="true" aria-labelledby="softPopupTitle">
-    <button type="button" class="soft-popup-close" aria-label="Close">&times;</button>
-    <div class="soft-popup-body">
-      <img id="softPopupImage" src="" alt="" />
-      <div class="soft-popup-text">
-        <h4 id="softPopupTitle"></h4>
-        <p id="softPopupDescription"></p>
-      </div>
+
+
+<!-- YouTube Video Popup -->
+<div id="youtubePopup" class="youtube-popup" aria-hidden="true">
+    <div class="youtube-popup-backdrop"></div>
+    <div class="youtube-popup-content">
+        <button type="button" class="youtube-popup-close" aria-label="Close">&times;</button>
+        <div class="youtube-popup-body">
+            <h4 id="youtubePopupTitle">Video Title</h4>
+            <div class="youtube-video-container">
+                <iframe id="youtubeIframe" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
+</section>
 
 <!-- Professional Experience Timeline with Astronaut Background -->
 <section id="professional-experience" class="experience-timeline-section section-padding astronaut-section">
@@ -2278,6 +2542,164 @@ document.addEventListener('DOMContentLoaded', function() {
         popup.addEventListener('mouseenter', () => clearTimeout(hoverTimer));
         popup.addEventListener('mouseleave', () => { if (!pinnedOpen) closePopup(); });
     })();
+    
+    // Banner Slider Functionality
+    const bannerTrack = document.querySelector('.banner-track');
+    const bannerItems = document.querySelectorAll('.banner-item');
+    const prevBtn = document.querySelector('.banner-prev');
+    const nextBtn = document.querySelector('.banner-next');
+    const youtubePopup = document.getElementById('youtubePopup');
+    const youtubeIframe = document.getElementById('youtubeIframe');
+    const youtubePopupTitle = document.getElementById('youtubePopupTitle');
+    const youtubePopupClose = document.querySelector('.youtube-popup-close');
+    const youtubePopupBackdrop = document.querySelector('.youtube-popup-backdrop');
+    
+    if (bannerTrack && bannerItems.length > 0) {
+        // Page-based navigation so we never leave a half item visible
+        let pageIndex = 0; // which 'page' we are on
+
+        const sliderViewport = document.querySelector('.banner-slider');
+
+        function getItemFullWidth() {
+            const first = bannerItems[0];
+            if (!first) return 330; // sensible default
+            const style = window.getComputedStyle(first);
+            const marginLeft = parseFloat(style.marginLeft) || 0;
+            const marginRight = parseFloat(style.marginRight) || 0;
+            return first.getBoundingClientRect().width + marginLeft + marginRight;
+        }
+
+        function getItemStep() {
+            // Use actual offset between first two items to include gap
+            if (bannerItems.length >= 2) {
+                const a = bannerItems[0].getBoundingClientRect();
+                const b = bannerItems[1].getBoundingClientRect();
+                const step = Math.round(b.left - a.left);
+                if (step > 0) return step;
+            }
+            return Math.round(getItemFullWidth());
+        }
+
+        function computeLayout() {
+            let step = getItemStep();
+            if (!Number.isFinite(step) || step <= 0) step = (bannerItems[0]?.getBoundingClientRect().width || 330) + 12;
+            const first = bannerItems[0];
+            const itemWidth = first ? first.getBoundingClientRect().width : step;
+            const gap = Math.max(0, step - itemWidth);
+            const viewportWidth = sliderViewport ? sliderViewport.clientWidth : (bannerTrack.parentElement ? bannerTrack.parentElement.clientWidth : window.innerWidth);
+            const itemsPerView = Math.max(1, Math.floor((viewportWidth + gap) / step));
+            const totalItems = bannerItems.length;
+            const trackInnerWidth = step * totalItems - gap; // all items plus gaps (no gap after last)
+            const maxTranslateX = Math.max(0, trackInnerWidth - viewportWidth);
+            const maxPage = Math.max(0, Math.ceil(totalItems / itemsPerView) - 1);
+            return { step, itemWidth, gap, viewportWidth, itemsPerView, trackInnerWidth, maxTranslateX, maxPage };
+        }
+
+        let layout = computeLayout();
+
+        function updateSlider() {
+            // Recompute on each draw (responsive)
+            layout = computeLayout();
+            // Calculate desired translate by pages and clamp so the last view is perfectly aligned (no cut/blank)
+            const rawStart = pageIndex * layout.itemsPerView * layout.step;
+            const clamped = Math.min(rawStart, layout.maxTranslateX);
+            bannerTrack.style.transform = `translateX(${-clamped}px)`;
+        }
+
+        function nextSlide() {
+            if (pageIndex < layout.maxPage) {
+                pageIndex += 1;
+            } else {
+                // Do not wrap on manual click; stay on the last full page
+                pageIndex = layout.maxPage;
+            }
+            updateSlider();
+        }
+
+        function prevSlide() {
+            if (pageIndex > 0) {
+                pageIndex -= 1;
+            } else {
+                pageIndex = 0;
+            }
+            updateSlider();
+        }
+
+        // Event listeners for slider controls
+        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+        // Auto-slide functionality (wraps by page)
+        let bannerAutoTimer = setInterval(() => {
+            const fresh = computeLayout();
+            if (pageIndex >= fresh.maxPage) {
+                pageIndex = 0; // wrap on auto-slide only
+            } else {
+                pageIndex += 1;
+            }
+            updateSlider();
+        }, 5000);
+
+        // Expose global handler for inline onclick attributes
+        window.moveBannerSlider = function(direction) {
+            if (typeof direction === 'number' && direction > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        };
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            updateSlider();
+        });
+
+        // Initial paint
+        updateSlider();
+    }
+    
+    // YouTube popup functionality
+    if (youtubePopup) {
+        function openYouTubePopup(videoId, title) {
+            youtubePopupTitle.textContent = title;
+            youtubeIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            youtubePopup.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeYouTubePopup() {
+            youtubePopup.classList.remove('show');
+            document.body.style.overflow = '';
+            youtubeIframe.src = '';
+        }
+        
+        // Event listeners for YouTube popup
+        if (youtubePopupClose) {
+            youtubePopupClose.addEventListener('click', closeYouTubePopup);
+        }
+        
+        if (youtubePopupBackdrop) {
+            youtubePopupBackdrop.addEventListener('click', closeYouTubePopup);
+        }
+        
+        // Banner click events
+        bannerItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const videoId = this.dataset.youtube;
+                const title = this.dataset.title;
+                if (videoId && title) {
+                    openYouTubePopup(videoId, title);
+                }
+            });
+        });
+        
+        // ESC key to close YouTube popup
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && youtubePopup.classList.contains('show')) {
+                closeYouTubePopup();
+            }
+        });
+    }
 
 });
 </script>
