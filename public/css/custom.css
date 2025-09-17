@@ -5309,3 +5309,16 @@ html {
     object-fit: cover !important;
   }
 }
+
+/* Center banner track and make arrows fully visible on mobile */
+@media (max-width: 768px) {
+  /* cancel any negative offsets from page styles */
+  .banner-prev { left: 8px !important; }
+  .banner-next { right: 8px !important; }
+}
+
+@media (max-width: 576px) {
+  /* center the track within the viewport */
+  .banner-slider { display: flex !important; justify-content: center !important; }
+  .banner-track { margin-left: auto !important; margin-right: auto !important; }
+}
