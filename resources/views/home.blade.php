@@ -947,11 +947,11 @@
             <div class="banner-slider">
                 <div class="banner-track">
                     @php
-                        $videoCards = isset($portfolioCards) ? $portfolioCards->filter(function($c){ return !empty($c->youtube_id); }) : collect();
+                        $videoCards = isset($portfolioCards) ? $portfolioCards : collect();
                     @endphp
 
                     @forelse($videoCards as $card)
-                        <div class="banner-item" data-youtube="{{ $card->youtube_id }}" data-title="{{ $card->title }}">
+                        <div class="banner-item" data-title="{{ $card->title }}" @if(!empty($card->youtube_id)) data-youtube="{{ $card->youtube_id }}" @endif>
                              <div class="banner-card">
                                  <img src="{{ $card->image ? asset('storage/' . $card->image) : asset('images/me.png') }}" alt="{{ $card->title }}" class="banner-image">
                                  <div class="banner-overlay">
@@ -980,10 +980,10 @@
             </div>
             
             <!-- Navigation buttons -->
-            <button class="banner-btn banner-prev" onclick="moveBannerSlider(-1)">
+            <button class="banner-btn banner-prev">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <button class="banner-btn banner-next" onclick="moveBannerSlider(1)">
+            <button class="banner-btn banner-next">
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
