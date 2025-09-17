@@ -1174,14 +1174,16 @@
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <div class="animate-on-scroll">
-                    <h2 class="display-5 fw-bold mb-4">What Clients Say</h2>
+                    <h2 class="display-5 fw-bold mb-4">{{ $testimonialsData['title'] ?? 'What Clients Say' }}</h2>
                     <p class="lead text-muted">
-                        Real feedback from real clients about their project experiences.
+                        {{ $testimonialsData['subtitle'] ?? 'Real feedback from real clients about their project experiences.' }}
                     </p>
                 </div>
             </div>
         </div>
         <div class="row g-4">
+            @php($bgColors = ['bg-primary', 'bg-success', 'bg-info'])
+            @foreach($testimonialsData['items'] ?? [] as $index => $testimonial)
             <div class="col-lg-4">
                 <div class="card h-100 animate-on-scroll border-0 shadow-sm">
                     <div class="card-body text-center p-5">
@@ -1189,62 +1191,25 @@
                             <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
                         </div>
                         <p class="card-text mb-4">
-                            "The website copy transformation was incredible. Our conversion rate jumped from 2% to 6.5% within the first month. ROI was immediate."
+                            "{{ $testimonial['content'] ?? '' }}"
                         </p>
                         <div class="d-flex align-items-center justify-content-center">
-                            <div class="bg-primary rounded-circle p-2 me-3">
-                                <i class="fas fa-user text-white"></i>
+                            <div class="bg-light rounded-circle p-2 me-3" style="width: 50px; height: 50px; overflow: hidden;">
+                                @if(!empty($testimonial['logo']))
+                                    <img src="{{ asset($testimonial['logo']) }}" alt="{{ $testimonial['name'] }} Company Logo" class="w-100 h-100" style="object-fit: contain;">
+                                @else
+                                    <i class="fas fa-building text-muted" style="font-size: 1.5rem; line-height: 46px;"></i>
+                                @endif
                             </div>
                             <div class="text-start">
-                                <h6 class="mb-0 fw-bold">Sarah Johnson</h6>
-                                <small class="text-muted">Fashion Forward CEO</small>
+                                <h6 class="mb-0 fw-bold">{{ $testimonial['name'] ?? '' }}</h6>
+                                <small class="text-muted">{{ $testimonial['position'] ?? '' }}</small>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="card h-100 animate-on-scroll border-0 shadow-sm">
-                    <div class="card-body text-center p-5">
-                        <div class="mb-3">
-                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
-                        </div>
-                        <p class="card-text mb-4">
-                            "Our email campaigns went from being eagerly anticipated to being ignored to tripled open rates and sales from email increased by 400%."
-                        </p>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <div class="bg-success rounded-circle p-2 me-3">
-                                <i class="fas fa-user text-white"></i>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="mb-0 fw-bold">Michael Chen</h6>
-                                <small class="text-muted">Tech Startup Founder</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card h-100 animate-on-scroll border-0 shadow-sm">
-                    <div class="card-body text-center p-5">
-                        <div class="mb-3">
-                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
-                        </div>
-                        <p class="card-text mb-4">
-                            "The content strategy completely transformed our brand voice. We went from generic to memorable, and our engagement rates soared."
-                        </p>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <div class="bg-info rounded-circle p-2 me-3">
-                                <i class="fas fa-user text-white"></i>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="mb-0 fw-bold">Emily Rodriguez</h6>
-                                <small class="text-muted">Lifestyle Brand Director</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -2220,7 +2185,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 const contentHTML = `
                     <div class="client-content">
-                        <h3 class="mb-3">${client.title}</h3>
                         <div class="rich-content mb-4">
                             <style>
                                 .rich-content .text-left { text-align: left !important; }

@@ -21,7 +21,8 @@ class HomeController extends Controller
         $portfolioCards = PortfolioCard::active()->ordered()->get();
         $experiences = Experience::active()->ordered()->get();
         $logos = Logo::where('is_active', true)->orderBy('position')->get();
-        return view('home', compact('heroData', 'animationData', 'siteSettings', 'featuredClientWork', 'portfolioCards', 'experiences', 'logos'));
+        $testimonialsData = $this->getTestimonialsData();
+        return view('home', compact('heroData', 'animationData', 'siteSettings', 'featuredClientWork', 'portfolioCards', 'experiences', 'logos', 'testimonialsData'));
     }
     
     private function getHeroData()
@@ -216,5 +217,44 @@ class HomeController extends Controller
         ];
         
         return view('testimonials', compact('testimonials'));
+    }
+    
+    private function getTestimonialsData()
+    {
+        $default = [
+            'title' => 'What Clients Say',
+            'subtitle' => 'Real feedback from real clients about their project experiences.',
+            'items' => [
+                [
+                    'content' => 'The website copy transformation was incredible. Our conversion rate jumped from 2% to 6.5% within the first month. ROI was immediate.',
+                    'name' => 'Sarah Johnson',
+                    'position' => 'Fashion Forward CEO',
+                    'logo' => null,
+                ],
+                [
+                    'content' => 'Our email campaigns went from being eagerly anticipated to being ignored to tripled open rates and sales from email increased by 400%.',
+                    'name' => 'Michael Chen',
+                    'position' => 'Tech Startup Founder',
+                    'logo' => null,
+                ],
+                [
+                    'content' => 'The content strategy completely transformed our brand voice. We went from generic to memorable, and our engagement rates soared.',
+                    'name' => 'Emily Rodriguez',
+                    'position' => 'Lifestyle Brand Director',
+                    'logo' => null,
+                ],
+            ],
+        ];
+
+        $filePath = storage_path('app/admin/testimonials_home.json');
+        if (File::exists($filePath)) {
+            $data = json_decode(File::get($filePath), true);
+            if (is_array($data)) {
+                // Merge with defaults to ensure structure
+                $data['items'] = $data['items'] ?? $default['items'];
+                return array_merge($default, $data);
+            }
+        }
+        return $default;
     }
 }

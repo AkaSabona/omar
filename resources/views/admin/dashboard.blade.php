@@ -260,6 +260,8 @@
                 </div>
             </div>
             
+            {{-- Testimonials section moved to Reviews page --}}
+            
         </div>
     </div>
 </div>

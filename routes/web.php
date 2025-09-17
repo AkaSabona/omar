@@ -7,8 +7,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\LogoController;
-use App\Http\Controllers\SummernoteController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\SummernoteController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -44,6 +45,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/animations/settings', [AdminController::class, 'getAnimationSettings'])->name('animations.settings');
     Route::post('/site-settings/update', [AdminController::class, 'updateSiteSettings'])->name('site-settings.update');
     Route::post('/featured-client-work/update', [AdminController::class, 'updateFeaturedClientWork'])->name('featured-client-work.update');
+    Route::post('/testimonials/update', [AdminController::class, 'updateTestimonials'])->name('testimonials.update');
     
     // Portfolio Cards Management
     Route::post('/portfolio-cards/store', [AdminController::class, 'storePortfolioCard'])->name('portfolio-cards.store');
@@ -65,6 +67,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/messages/deleted/list', [MessageController::class, 'deleted'])->name('messages.deleted');
     Route::patch('/messages/{id}/restore', [MessageController::class, 'restore'])->name('messages.restore');
     Route::delete('/messages/{id}/force-delete', [MessageController::class, 'forceDelete'])->name('messages.force-delete');
+    
+    // Reviews Management
+    Route::get('/reviews', [ReviewsController::class, 'index'])->name('reviews.index');
+    Route::post('/reviews/testimonials/update', [ReviewsController::class, 'updateTestimonials'])->name('reviews.testimonials.update');
     
     // Summernote image upload
     Route::post('/summernote/upload', [SummernoteController::class, 'uploadImage'])->name('summernote.upload');

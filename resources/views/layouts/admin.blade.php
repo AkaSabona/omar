@@ -317,6 +317,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}" href="{{ route('admin.reviews.index') }}">
+                        <i class="fas fa-star"></i>
+                        Reviews
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}" target="_blank">
                         <i class="fas fa-external-link-alt"></i>
                         View Website
