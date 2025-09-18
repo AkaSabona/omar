@@ -4708,6 +4708,11 @@ html {
         max-width: 95vw;
     }
     
+    .modal-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+    
     .client-content {
         padding: 20px;
     }
@@ -5296,14 +5301,18 @@ html {
 /* Banner slider: mobile sizing aligned with 90–95vw cards and left-aligned track to avoid blank space */
 @media (max-width: 576px) {
   .banner-slider-container .banner-item {
-    flex: 0 0 90vw !important;
-    min-width: 90vw !important;
-    width: 90vw !important;
+    flex: 0 0 150px !important;
+    min-width: 150px !important;
+    width: 150px !important;
   }
-  .banner-slider-container .banner-card { width: 100% !important; }
+  .banner-slider-container .banner-card {
+    width: 150px !important;
+    height: 150px !important;
+    overflow: hidden !important;
+  }
   .banner-slider-container .banner-image {
     width: 100% !important;
-    height: 200px !important;
+    height: 100% !important;
     object-fit: cover !important;
   }
 }

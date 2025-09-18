@@ -549,19 +549,21 @@
     }
 
     @media (max-width: 576px) {
-        .banner-item { flex: 0 0 90vw; min-width: 90vw; }
+        .banner-item { flex: 0 0 90vw; min-width: 90vw; height: auto; }
         .banner-track { width: max-content; }
         .banner-slider-container { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
-        .banner-image { height: 200px; }
+        .banner-card { aspect-ratio: 16 / 9; }
+        .banner-image { width: 100%; height: 100%; max-height: none; object-fit: cover; }
         .play-button { width: 56px; height: 56px; }
         .play-button i { font-size: 26px; }
     }
     
     @media (max-width: 480px) {
-        .banner-item { flex: 0 0 95vw; min-width: 95vw; }
+        .banner-item { flex: 0 0 95vw; min-width: 95vw; height: auto; }
         .banner-track { width: max-content; }
         .banner-slider-container { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
-        .banner-image { height: 180px; }
+        .banner-card { aspect-ratio: 16 / 9; }
+        .banner-image { width: 100%; height: 100%; max-height: none; object-fit: cover; }
         .play-button { width: 50px; height: 50px; }
         .play-button i { font-size: 24px; }
     }
