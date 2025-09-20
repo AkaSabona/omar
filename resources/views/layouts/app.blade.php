@@ -466,6 +466,7 @@
         .social-links a:hover {
             background: var(--accent-color);
             transform: translateY(-3px);
+            color: #fff !important; /* Keep icon/text white on hover */
         }
         
         .animate-on-scroll {
@@ -520,7 +521,44 @@
         @yield('content')
     </main>
 
-
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <h5>Omar - Professional Copywriter</h5>
+                    <p class="mb-3">Crafting compelling content that drives results and transforms businesses through strategic copywriting and digital content creation.</p>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <h5>Connect With Me</h5>
+                    <div class="social-links mb-3">
+                        <a href="https://facebook.com/omar.copywriter" target="_blank" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/omar-copywriter" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:omar@copywriter.com" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="tel:+1234567890" title="Phone">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                    </div>
+                    <p class="mb-0">Let's create something amazing together!</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; {{ date('Y') }} Omar - Professional Copywriter. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> by Hesham Naeem</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

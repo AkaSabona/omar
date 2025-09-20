@@ -1346,7 +1346,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <div class="cta-content scroll-animate" style="margin-top: 120px;">
+                <div class="cta-content scroll-animate" style="margin-top: 80px;">
                     <div class="cta-icon mb-4 scroll-scale">
                         <i class="fas fa-user-astronaut"></i>
                     </div>
@@ -1457,11 +1457,7 @@
                         </div>
                     </div>
                     
-                    <div class="cta-guarantee mt-4 scroll-fade-in">
-                        <small class="text-white" style="opacity: 0.9;">
-                            <i class="fas fa-shield-alt me-2"></i>100% satisfaction guarantee • Free consultation
-                        </small>
-                    </div>
+                    
                 </div>
             </div>
         </div>
