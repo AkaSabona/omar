@@ -503,7 +503,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#featured-client-work">Featured Client Work</a>
                     </li>
-                  
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}#clients-past-work-section">Brands</a>
+                    </li>
                     
                     <li class="nav-item">
                         <a class="nav-link nav-link-cta" href="{{ route('home') }}#cta-section">Get Quote</a>

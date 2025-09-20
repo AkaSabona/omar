@@ -98,6 +98,86 @@
     
     .rich-content pre code {
         background: none;
+    }
+    
+    /* Scroll Down Indicator Styles */
+    .scroll-down-indicator {
+        position: absolute;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        z-index: 10;
+        color: white;
+        pointer-events: none;
+        transition: all 0.3s ease;
+    }
+    
+    .scroll-arrow {
+        width: 50px;
+        height: 50px;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        animation: bounce 2s infinite;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+    }
+    
+    .scroll-arrow i {
+        font-size: 20px;
+        animation: arrowPulse 2s infinite;
+    }
+    
+    .scroll-text {
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.9;
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-10px);
+        }
+        60% {
+            transform: translateY(-5px);
+        }
+    }
+    
+    @keyframes arrowPulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .scroll-down-indicator {
+            bottom: 20px;
+        }
+        
+        .scroll-arrow {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .scroll-arrow i {
+            font-size: 16px;
+        }
+        
+        .scroll-text {
+            font-size: 10px;
+        }
         padding: 0;
     }
     
@@ -404,16 +484,40 @@
 
     .banner-item {
         /* Card base size; JS calculates exact step including gap */
-        flex: 0 0 330px;
-        width: 330px;
-        min-width: 330px; /* avoid forcing extra width that causes half-cuts */
-        height: 250px;
+        flex: 0 0 280px;
+        width: 280px;
+        min-width: 280px; /* avoid forcing extra width that causes half-cuts */
+        height: 200px;
         cursor: pointer;
-        transition: transform 0.3s ease;
+        transition: all 0.5s ease;
+        opacity: 0.6;
+        transform: none;
     }
 
-    .banner-item:hover {
-        transform: scale(1.05);
+    .banner-item.center {
+        flex: 0 0 420px;
+        width: 420px;
+        min-width: 420px;
+        height: 280px;
+        opacity: 1;
+        transform: none;
+        z-index: 10;
+        position: relative;
+    }
+
+
+    .banner-item.center .banner-card {
+        box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        border: 3px solid rgba(102, 126, 234, 0.6);
+    }
+
+    .banner-item:not(.center):hover {
+        opacity: 0.6; /* keep side items not highlighted */
+    }
+
+    .banner-item.center:hover {
+        opacity: 1;
+        transform: none;
     }
 
     .banner-card {
@@ -426,7 +530,7 @@
         transition: all 0.3s ease;
     }
 
-    .banner-item:hover .banner-card {
+    .banner-item.center:hover .banner-card {
         transform: translateY(-5px);
         box-shadow: 0 15px 35px rgba(0,0,0,0.2);
     }
@@ -436,12 +540,18 @@
         height: 100%;
         max-height: 250px;
         object-fit: cover;
-        transition: transform 0.3s ease;
+        transition: transform 0.4s ease;
     }
 
-    .banner-item:hover .banner-image {
+    .banner-item.center .banner-image {
+        transform: scale(1.03);
+    }
+
+    .banner-item.center:hover .banner-image {
         transform: scale(1.05);
     }
+
+    .banner-item.center .banner-overlay { opacity: 1; }
 
     .banner-overlay {
         position: absolute;
@@ -458,7 +568,7 @@
         transition: opacity 0.3s ease;
     }
 
-    .banner-item:hover .banner-overlay {
+    .banner-item.center:hover .banner-overlay {
         opacity: 1;
     }
 
@@ -476,7 +586,7 @@
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    .banner-item:hover .play-button {
+    .banner-item.center:hover .play-button {
         background: rgba(255,255,255,1);
         transform: scale(1.1);
         box-shadow: 0 6px 20px rgba(0,0,0,0.3);
@@ -519,7 +629,7 @@
     .banner-slider-btn:hover,
     .banner-btn:hover {
         background: white;
-        transform: translateY(-50%) scale(1.1);
+        transform: translateY(-50%);
         box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     }
 
@@ -529,11 +639,13 @@
     /* Responsive adjustments for banner slider */
     @media (max-width: 1200px) {
         /* keep multi-card layout; JS will compute items per view */
-        .banner-item { flex: 0 0 330px; min-width: 330px; }
+        .banner-item { flex: 0 0 260px; min-width: 260px; }
+        .banner-item.center { flex: 0 0 380px; min-width: 380px; height: 260px; }
     }
 
     @media (max-width: 992px) {
-        .banner-item { flex: 0 0 300px; min-width: 300px; }
+        .banner-item { flex: 0 0 240px; min-width: 240px; }
+        .banner-item.center { flex: 0 0 340px; min-width: 340px; height: 240px; }
         .banner-prev { left: 16px; }
         .banner-next { right: 16px; }
     }
@@ -746,37 +858,23 @@
     }
 
     @media (max-width: 768px) {
-        .banner-item {
-            flex: 0 0 calc(50% - 10px);
-        }
+        .banner-item { flex: 0 0 60vw; min-width: 60vw; height: auto; }
+        .banner-item.center { flex: 0 0 80vw; min-width: 80vw; }
         
-        .banner-image {
-            height: 150px;
-        }
+        .banner-image { height: 150px; }
         
-        .youtube-popup-content {
-            width: 95vw;
-            margin: 20px;
-        }
+        .youtube-popup-content { width: 95vw; margin: 20px; }
         
-        .banner-slider-btn {
-            width: 40px;
-            height: 40px;
-        }
+        .banner-slider-btn { width: 40px; height: 40px; }
         
-        .banner-prev {
-            left: -20px;
-        }
+        .banner-prev { left: -20px; }
         
-        .banner-next {
-            right: -20px;
-        }
+        .banner-next { right: -20px; }
     }
 
     @media (max-width: 576px) {
-        .banner-item {
-            flex: 0 0 calc(100% - 10px);
-        }
+        .banner-item { flex: 0 0 85vw; min-width: 85vw; }
+        .banner-item.center { flex: 0 0 95vw; min-width: 95vw; }
     }
 </style>
 @endpush
@@ -894,6 +992,14 @@
             <div class="debris debris-2"></div>
             <div class="debris debris-3"></div>
         </div>
+    </div>
+    
+    <!-- Scroll Down Animation Icon -->
+    <div class="scroll-down-indicator">
+        <div class="scroll-arrow">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <span class="scroll-text">Scroll Down</span>
     </div>
 </section>
 
@@ -1129,7 +1235,7 @@
 </section>
 
 <!-- Clients Past Work Section -->
-<section class="clients-past-work-section section-padding">
+<section id="clients-past-work-section" class="clients-past-work-section section-padding">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
@@ -1492,6 +1598,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Scroll Down Indicator functionality
+    const scrollDownIndicator = document.querySelector('.scroll-down-indicator');
+    if (scrollDownIndicator) {
+        // Hide scroll indicator when user scrolls past hero section
+        window.addEventListener('scroll', function() {
+            const heroSection = document.querySelector('.modern-hero-section');
+            if (heroSection) {
+                const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                const scrollPosition = window.pageYOffset;
+                
+                if (scrollPosition > heroBottom - 200) {
+                    scrollDownIndicator.style.opacity = '0';
+                } else {
+                    scrollDownIndicator.style.opacity = '1';
+                }
+            }
+        });
+    }
 
     // Handle CTA contact form submission with AJAX to prevent page scrolling
     const ctaContactForm = document.getElementById('ctaContactForm');
@@ -2522,7 +2647,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Banner Slider Functionality
     const bannerTrack = document.querySelector('.banner-track');
-    const bannerItems = document.querySelectorAll('.banner-item');
+    // Use a function to get a fresh NodeList each time, so clones are included
+    function getBannerItems() { return document.querySelectorAll('.banner-item'); }
+    let bannerItems = getBannerItems();
     const prevBtn = document.querySelector('.banner-prev');
     const nextBtn = document.querySelector('.banner-next');
     const youtubePopup = document.getElementById('youtubePopup');
@@ -2532,107 +2659,227 @@ document.addEventListener('DOMContentLoaded', function() {
     const youtubePopupBackdrop = document.querySelector('.youtube-popup-backdrop');
     
     if (bannerTrack && bannerItems.length > 0) {
-        // Page-based navigation so we never leave a half item visible
-        let pageIndex = 0; // which 'page' we are on
+        // Center-mode navigation: keep a current center index, scale center, others smaller
+        let centerIndex = Math.floor(bannerItems.length / 2); // start from the middle item
 
         const sliderViewport = document.querySelector('.banner-slider');
 
-        function getItemFullWidth() {
-            const first = bannerItems[0];
-            if (!first) return 330; // sensible default
-            const style = window.getComputedStyle(first);
-            const marginLeft = parseFloat(style.marginLeft) || 0;
-            const marginRight = parseFloat(style.marginRight) || 0;
-            return first.getBoundingClientRect().width + marginLeft + marginRight;
-        }
-
-        function getItemStep() {
-            // Use actual offset between first two items to include gap
+        function getStep() {
             if (bannerItems.length >= 2) {
                 const a = bannerItems[0].getBoundingClientRect();
                 const b = bannerItems[1].getBoundingClientRect();
                 const step = Math.round(b.left - a.left);
                 if (step > 0) return step;
             }
-            return Math.round(getItemFullWidth());
+            const w = bannerItems[0]?.getBoundingClientRect().width || 280;
+            return Math.round(w + 12);
         }
 
         function computeLayout() {
-            let step = getItemStep();
-            if (!Number.isFinite(step) || step <= 0) step = (bannerItems[0]?.getBoundingClientRect().width || 330) + 12;
-            const first = bannerItems[0];
-            const itemWidth = first ? first.getBoundingClientRect().width : step;
-            const gap = Math.max(0, step - itemWidth);
+            bannerItems = getBannerItems();
+            const step = getStep();
             const viewportWidth = sliderViewport ? sliderViewport.clientWidth : (bannerTrack.parentElement ? bannerTrack.parentElement.clientWidth : window.innerWidth);
-            const itemsPerView = Math.max(1, Math.floor((viewportWidth + gap) / step));
             const totalItems = bannerItems.length;
-            const trackInnerWidth = step * totalItems - gap; // all items plus gaps (no gap after last)
-            const maxTranslateX = Math.max(0, trackInnerWidth - viewportWidth);
-            const maxPage = Math.max(0, Math.ceil(totalItems / itemsPerView) - 1);
-            return { step, itemWidth, gap, viewportWidth, itemsPerView, trackInnerWidth, maxTranslateX, maxPage };
+            const trackWidth = bannerTrack.scrollWidth;
+            const maxTranslateX = Math.max(0, trackWidth - viewportWidth);
+            return { step, viewportWidth, totalItems, maxTranslateX };
         }
 
-        let layout = computeLayout();
-
-        function updateSlider() {
-            // Recompute on each draw (responsive)
-            layout = computeLayout();
-            // Calculate desired translate by pages and clamp so the last view is perfectly aligned (no cut/blank)
-            const rawStart = pageIndex * layout.itemsPerView * layout.step;
-            const clamped = Math.min(rawStart, layout.maxTranslateX);
-            bannerTrack.style.transform = `translateX(${-clamped}px)`;
+        // Ensure first/last items can be truly centered by adding symmetric virtual side padding
+        function updateTrackPadding() {
+            const viewportWidth = sliderViewport ? sliderViewport.clientWidth : (bannerTrack.parentElement ? bannerTrack.parentElement.clientWidth : window.innerWidth);
+            if (!viewportWidth) return;
+            // Use median item width as a stable "typical" width
+            const widths = Array.from(bannerItems).map(el => el.getBoundingClientRect().width || 0).sort((a,b)=>a-b);
+            const typical = widths.length ? widths[Math.floor(widths.length/2)] : 280;
+            const pad = Math.max(0, Math.round((viewportWidth - typical) / 2));
+            bannerTrack.style.paddingLeft = pad + 'px';
+            bannerTrack.style.paddingRight = pad + 'px';
         }
 
-        function nextSlide() {
-            if (pageIndex < layout.maxPage) {
-                pageIndex += 1;
-            } else {
-                // Do not wrap on manual click; stay on the last full page
-                pageIndex = layout.maxPage;
+        // Build a true infinite track by cloning N items at both ends and teleporting when crossing the clone boundary
+        function ensureClones() {
+            if (!bannerTrack) return;
+
+            // 0) Remember which origin index is currently centered (if any)
+            let originToKeep = null;
+            if (bannerItems && bannerItems[centerIndex]) {
+                const cur = bannerItems[centerIndex];
+                if (cur && cur.dataset && typeof cur.dataset.originIndex !== 'undefined') {
+                    originToKeep = parseInt(cur.dataset.originIndex, 10);
+                }
             }
-            updateSlider();
+
+            // 1) Remove existing clones
+            Array.from(document.querySelectorAll('.banner-item[data-clone="1"]')).forEach(n => n.remove());
+
+            // 2) Capture originals and mark their origin indices
+            const originals = Array.from(document.querySelectorAll('.banner-item:not([data-clone="1"])'));
+            if (originals.length === 0) return;
+            originals.forEach((el, i) => { el.dataset.originIndex = i; el.dataset.clone = ''; });
+
+            // 3) Compute how many items are visible; clone at least that many on both ends
+            const viewportWidth = (document.querySelector('.banner-slider')?.clientWidth) || (bannerTrack.parentElement ? bannerTrack.parentElement.clientWidth : window.innerWidth);
+            // Estimate horizontal step using originals only
+            let step = 0;
+            if (originals.length >= 2) {
+                const a = originals[0].getBoundingClientRect();
+                const b = originals[1].getBoundingClientRect();
+                step = Math.round(b.left - a.left);
+            }
+            if (!step || step <= 0) step = Math.round((originals[0].getBoundingClientRect().width || 280) + 12);
+            const visibleCount = Math.max(3, Math.ceil(viewportWidth / step) + 1);
+
+            // 4) Create clones
+            const cloneItem = (el) => { const c = el.cloneNode(true); c.dataset.clone = '1'; c.dataset.originIndex = el.dataset.originIndex; return c; };
+            const head = originals.slice(0, visibleCount).map(cloneItem);
+            const tail = originals.slice(-visibleCount).map(cloneItem);
+
+            // Prepend tail clones, append head clones
+            const firstOriginal = originals[0];
+            tail.forEach(cl => bannerTrack.insertBefore(cl, firstOriginal));
+            head.forEach(cl => bannerTrack.appendChild(cl));
+
+            // 5) Refresh items and choose a safe center index in the middle block
+            bannerItems = getBannerItems();
+            const totalOriginals = originals.length;
+            const baseOffset = visibleCount; // number of prepended clones
+            if (originToKeep === null) originToKeep = Math.floor(totalOriginals / 2);
+            centerIndex = baseOffset + Math.min(Math.max(0, originToKeep), totalOriginals - 1);
+
+            // 6) Jump instantly to keep the selected origin item centered without visual jump
+            if (typeof jumpWithoutAnimation === 'function') {
+                jumpWithoutAnimation(centerIndex);
+            }
         }
 
-        function prevSlide() {
-            if (pageIndex > 0) {
-                pageIndex -= 1;
-            } else {
-                pageIndex = 0;
-            }
-            updateSlider();
+        function applyCenterClass() {
+            bannerItems.forEach((el, i) => {
+                if (i === centerIndex) el.classList.add('center');
+                else el.classList.remove('center');
+            });
         }
+
+        // Jump to a specific index without CSS transition (to hide teleports when looping)
+        function jumpWithoutAnimation(targetIndex) {
+            const prev = bannerTrack.style.transition;
+            bannerTrack.style.transition = 'none';
+            // force reflow to ensure transition is truly disabled
+            void bannerTrack.offsetWidth;
+            centerIndex = targetIndex;
+            const { viewportWidth, maxTranslateX } = computeLayout();
+            const item = bannerItems[centerIndex];
+            const proposed = item.offsetLeft - (viewportWidth - item.offsetWidth) / 2;
+            const translate = Math.max(0, Math.min(proposed, maxTranslateX));
+            bannerTrack.style.transform = `translateX(${-translate}px)`;
+            // force reflow then restore transition
+            void bannerTrack.offsetWidth;
+            bannerTrack.style.transition = prev || '';
+            applyCenterClass();
+        }
+
+        function centerTo(index) {
+            const { viewportWidth, totalItems, maxTranslateX } = computeLayout();
+
+            // Layout: [tail clones][originals][head clones]
+            const clonesOnEachSide = (() => {
+                let count = 0; const items = Array.from(bannerItems);
+                for (let i = 0; i < items.length; i++) { if (items[i].dataset.clone === '1') count++; else break; }
+                return count;
+            })();
+            const totalOriginals = Array.from(bannerItems).filter(n => n.dataset.clone !== '1').length;
+
+            // Keep requested index so moving past the edges steps into the adjacent clone (small movement)
+            index = Math.max(0, Math.min(index, bannerItems.length - 1));
+            let target = bannerItems[index];
+            if (!target) return;
+
+            // 1) Compute the translate needed for the requested item (without forcing it to be center yet)
+            const itemA = bannerItems[index];
+            let proposed = itemA.offsetLeft - (viewportWidth - itemA.offsetWidth) / 2;
+            let translate = Math.max(0, Math.min(proposed, maxTranslateX));
+
+            // 2) Determine which item will actually be closest to the visual center with this translate
+            const viewportCenter = translate + viewportWidth / 2;
+            let bestIndex = 0, bestDiff = Infinity;
+            bannerItems.forEach((el, i) => {
+                const center = el.offsetLeft + el.offsetWidth / 2;
+                const diff = Math.abs(center - viewportCenter);
+                if (diff < bestDiff) { bestDiff = diff; bestIndex = i; }
+            });
+
+            // 3) Set that item as center and apply the class
+            centerIndex = bestIndex;
+            applyCenterClass();
+
+            // 4) Recalculate translate to precisely center the chosen item; clamp again
+            const item = bannerItems[centerIndex];
+            proposed = item.offsetLeft - (viewportWidth - item.offsetWidth) / 2;
+            translate = Math.max(0, Math.min(proposed, maxTranslateX));
+            bannerTrack.style.transform = `translateX(${-translate}px)`;
+
+            // After the transition finishes, if we're sitting on a clone, instantly normalize to the
+            // equivalent original item in the middle block so the next move continues forward smoothly.
+            // Use a fallback timer in case no CSS transition fires (e.g., zero-distance move or reduced motion).
+            let normalized = false;
+            const normalizeIfOnClone = () => {
+                if (normalized) return; normalized = true;
+                const items = Array.from(bannerItems);
+                const current = items[centerIndex];
+                if (!current) return;
+                if (current.dataset && current.dataset.clone === '1') {
+                    let leadClones = 0; for (let k = 0; k < items.length; k++) { if (items[k].dataset.clone === '1') leadClones++; else break; }
+                    const originIdx = current.dataset.originIndex !== undefined ? parseInt(current.dataset.originIndex, 10) : (centerIndex - leadClones);
+                    const mapped = Math.max(0, Math.min(leadClones + originIdx, items.length - 1));
+                    if (mapped !== centerIndex) jumpWithoutAnimation(mapped);
+                }
+            };
+            let fallback;
+            const onEnd = (e) => {
+                if (e && e.propertyName && e.propertyName !== 'transform') return;
+                clearTimeout(fallback);
+                normalizeIfOnClone();
+            };
+            fallback = setTimeout(() => { normalizeIfOnClone(); }, 450);
+            bannerTrack.addEventListener('transitionend', onEnd, { once: true });
+        }
+
+        // No longer remapping before moving; we step into clones and normalize after transition ends
+        function nextSlide() { centerTo(centerIndex + 1); }
+        function prevSlide() { centerTo(centerIndex - 1); }
 
         // Event listeners for slider controls
         if (nextBtn) nextBtn.addEventListener('click', nextSlide);
         if (prevBtn) prevBtn.addEventListener('click', prevSlide);
 
-        // Auto-slide functionality (wraps by page)
+        // Clicking an item centers it first; delegate so clones work too
+        bannerTrack.addEventListener('click', (e) => {
+            const item = e.target.closest('.banner-item');
+            if (!item || !bannerTrack.contains(item)) return;
+            const items = Array.from(getBannerItems());
+            const idx = items.indexOf(item);
+            if (idx >= 0) centerTo(idx);
+        }, true);
+
+        // Auto-slide every 5s (keeps running; no hover pause)
         let bannerAutoTimer = setInterval(() => {
-            const fresh = computeLayout();
-            if (pageIndex >= fresh.maxPage) {
-                pageIndex = 0; // wrap on auto-slide only
-            } else {
-                pageIndex += 1;
-            }
-            updateSlider();
+            centerTo(centerIndex + 1);
         }, 5000);
 
-        // Expose global handler for inline onclick attributes
         window.moveBannerSlider = function(direction) {
-            if (typeof direction === 'number' && direction > 0) {
-                nextSlide();
-            } else {
-                prevSlide();
-            }
+            if (typeof direction === 'number' && direction > 0) nextSlide(); else prevSlide();
         };
 
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            updateSlider();
-        });
+        window.addEventListener('resize', function() { ensureClones(); updateTrackPadding(); centerTo(centerIndex); });
 
-        // Initial paint
-        updateSlider();
+        // Initial center
+        ensureClones();
+        updateTrackPadding();
+        applyCenterClass();
+        centerTo(centerIndex);
+
+        // No fixed overlay; center highlight is applied via .center class on the current slide
+
     }
     
     // YouTube popup functionality
