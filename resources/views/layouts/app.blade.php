@@ -551,10 +551,10 @@
             <hr class="my-4">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <p class="mb-0">&copy; {{ date('Y') }} Omar - Professional Copywriter. All rights reserved.</p>
+                    <p class="mb-0">&copy; {{ date('Y') }} Omar Gamal - Professional Copywriter. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> by Hesham Naeem</p>
+                    <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> by <a href="https://facebook.com/omar.copywriter" target="_blank" title="Facebook - Hesham Naeem">Hesham Naeem</a></p>
                 </div>
             </div>
         </div>
