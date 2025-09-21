@@ -471,6 +471,7 @@
     .banner-slider {
         overflow: hidden;
         width: 100%;
+        min-height: 280px;
     }
 
     .banner-track {
@@ -489,7 +490,7 @@
         min-width: 280px; /* avoid forcing extra width that causes half-cuts */
         height: 200px;
         cursor: pointer;
-        transition: all 0.5s ease;
+        transition: opacity 0.5s ease; /* prevent height/width animation causing jitter */
         opacity: 0.6;
         transform: none;
     }
@@ -503,6 +504,7 @@
         transform: none;
         z-index: 10;
         position: relative;
+        transition: opacity 0.3s ease; /* avoid animating size when center toggles */
     }
 
 
@@ -641,6 +643,7 @@
         /* keep multi-card layout; JS will compute items per view */
         .banner-item { flex: 0 0 260px; min-width: 260px; }
         .banner-item.center { flex: 0 0 380px; min-width: 380px; height: 260px; }
+        .banner-slider { min-height: 260px; }
     }
 
     @media (max-width: 992px) {
@@ -648,6 +651,7 @@
         .banner-item.center { flex: 0 0 340px; min-width: 340px; height: 240px; }
         .banner-prev { left: 16px; }
         .banner-next { right: 16px; }
+        .banner-slider { min-height: 240px; }
     }
 
     @media (max-width: 768px) {
@@ -658,6 +662,7 @@
         .banner-image { height: 220px; }
         .play-button { width: 64px; height: 64px; }
         .play-button i { font-size: 28px; }
+        .banner-slider { min-height: 220px; }
     }
 
     @media (max-width: 576px) {
@@ -668,6 +673,7 @@
         .banner-image { width: 100%; height: 100%; max-height: none; object-fit: cover; }
         .play-button { width: 56px; height: 56px; }
         .play-button i { font-size: 26px; }
+        .banner-slider { min-height: 160px; }
     }
     
     @media (max-width: 480px) {
@@ -678,6 +684,7 @@
         .banner-image { width: 100%; height: 100%; max-height: none; object-fit: cover; }
         .play-button { width: 50px; height: 50px; }
         .play-button i { font-size: 24px; }
+        .banner-slider { min-height: 150px; }
     }
 
     .banner-slider-btn i {
@@ -2691,6 +2698,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const pad = Math.max(0, Math.round((viewportWidth - typical) / 2));
             bannerTrack.style.paddingLeft = pad + 'px';
             bannerTrack.style.paddingRight = pad + 'px';
+            // Lock track min-height to current center item height to avoid container reflow
+            const centerEl = bannerItems[centerIndex];
+            if (centerEl) {
+                const h = centerEl.getBoundingClientRect().height || 280;
+                const sliderEl = document.querySelector('.banner-slider');
+                if (sliderEl) sliderEl.style.minHeight = Math.round(h) + 'px';
+            }
         }
 
         // Build a true infinite track by cloning N items at both ends and teleporting when crossing the clone boundary
