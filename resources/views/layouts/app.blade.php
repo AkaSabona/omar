@@ -532,16 +532,16 @@
                 <div class="col-lg-6 mb-4">
                     <h5>Connect With Me</h5>
                     <div class="social-links mb-3">
-                        <a href="https://facebook.com/omar.copywriter" target="_blank" title="Facebook">
+                        <a href="https://facebook.com/omargamal48/" target="_blank" title="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="https://linkedin.com/in/omar-copywriter" target="_blank" title="LinkedIn">
+                        <a href="https://www.linkedin.com/in/omar-gamal-139060218/" target="_blank" title="LinkedIn">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
-                        <a href="mailto:omar@copywriter.com" title="Email">
+                        <a href="mailto:cwomar.gamal@gmail.com" title="Email">
                             <i class="fas fa-envelope"></i>
                         </a>
-                        <a href="tel:+1234567890" title="Phone">
+                        <a href="tel:01064034376" title="Phone">
                             <i class="fas fa-phone"></i>
                         </a>
                     </div>
@@ -554,7 +554,7 @@
                     <p class="mb-0">&copy; {{ date('Y') }} Omar Gamal - Professional Copywriter. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> by <a href="https://facebook.com/omar.copywriter" target="_blank" title="Facebook - Hesham Naeem">Hesham Naeem</a></p>
+                    <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> by <a href="https://facebook.com/hesham.naeem.16/" target="_blank" title="Facebook - Hesham Naeem">Hesham Naeem</a></p>
                 </div>
             </div>
         </div>
