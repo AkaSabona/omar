@@ -51,7 +51,8 @@ class ContactController extends Controller
 
         // Prepare email notification data
         try {
-            $adminEmail = env('ADMIN_EMAIL', 'omargamal@gmail.com');
+            // Use config() instead of env() when config is cached
+            $adminEmail = config('services.admin_email', 'omargamal@gmail.com');
             
             // Try to load SMTP and recipient settings from SiteSetting if available
             $settings = SiteSetting::first();
@@ -68,8 +69,8 @@ class ContactController extends Controller
                         'mail.mailers.smtp.encryption' => $settings->mail_encryption ?: null,
                         'mail.mailers.smtp.username' => $settings->mail_username ?: null,
                         'mail.mailers.smtp.password' => $settings->mail_password ?: null,
-                        'mail.from.address' => $settings->mail_from_address ?: env('MAIL_FROM_ADDRESS'),
-                        'mail.from.name' => $settings->mail_from_name ?: env('MAIL_FROM_NAME', config('app.name')),
+                        'mail.from.address' => $settings->mail_from_address ?: config('mail.from.address'),
+                        'mail.from.name' => $settings->mail_from_name ?: config('mail.from.name', config('app.name')),
                     ]);
                 }
             }

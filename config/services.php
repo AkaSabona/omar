@@ -30,4 +30,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // Added admin_email to be read via config()
+    'admin_email' => env('ADMIN_EMAIL', 'omargamal@gmail.com'),
+
 ];
