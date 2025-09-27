@@ -573,7 +573,7 @@
                 background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #2c3e50 100%) !important;
                 color: white !important;
                 margin-top: -151px !important;
-                padding-top: 208px !important;
+                padding-top: 215px !important;
             }
         }
     </style>
