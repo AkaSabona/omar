@@ -37,8 +37,15 @@ body {
 /* Navbar Navigation Styling */
 .navbar-nav .nav-link {
     font-family: 'Cairo', sans-serif !important;
-    font-size: 0.8rem !important;
+    font-size: 1.1rem !important; /* Desktop size */
     font-weight: 700 !important;
+}
+
+/* Mobile responsive styling */
+@media (max-width: 768px) {
+    .navbar-nav .nav-link {
+        font-size: 0.8rem !important; /* Mobile size */
+    }
 }
 
 .section-padding {
