@@ -162,7 +162,7 @@ h1, h2, h3, h4, h5, h6 {
     background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
     position: relative;
     overflow: hidden;
-    min-height: 111vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
 }
@@ -567,8 +567,8 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .modern-hero-section {
-        min-height: 90vh;
-        padding: 80px 0 40px;
+        min-height: 60vh;
+        padding: 60px 0 30px;
     }
     
     .hero-stats .col-4 {
@@ -627,8 +627,8 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .modern-hero-section {
-        min-height: 80vh;
-        padding: 60px 0 30px;
+        min-height: 50vh;
+        padding: 40px 0 20px;
     }
     
     .hero-stats {
@@ -689,8 +689,8 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .modern-hero-section {
-        min-height: 70vh;
-        padding: 40px 0 20px;
+        min-height: 40vh;
+        padding: 30px 0 15px;
     }
     
     .hero-stats .col-4 {
@@ -723,7 +723,14 @@ h1, h2, h3, h4, h5, h6 {
     .profile-card {
         max-width: 280px;
         padding: 1.5rem;
-        margin: 2rem auto 0;
+        margin: 1rem auto 0;
+    }
+    
+    .hero-visual {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
     }
     
     .section-padding {
@@ -787,6 +794,12 @@ h1, h2, h3, h4, h5, h6 {
     .profile-card {
         max-width: 250px;
         padding: 1rem;
+        margin: 0.5rem auto 0;
+    }
+    
+    .hero-visual {
+        margin-top: 1.5rem;
+        align-items: flex-start;
     }
     
     .btn {
