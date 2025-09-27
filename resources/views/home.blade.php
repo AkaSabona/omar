@@ -889,34 +889,51 @@
 @section('content')
 <!-- Hero Section -->
 <section class="modern-hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6 order-lg-1 order-2">
+                <div class="hero-content">
+                    <h1 class="display-4 fw-bold mb-4 text-white">
+                        {!! $heroData['title'] ?? 'Professional <span class="text-warning">Copywriter</span><br>& Content Strategist' !!}
+                    </h1>
+                    <p class="lead mb-4 text-white-50">
+                        {{ $heroData['subtitle'] ?? 'Transforming ideas into compelling content that drives results and engages audiences across all platforms.' }}
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mb-4">
+                        <a href="#featured-client-work" class="btn btn-warning btn-lg">
+                            <i class="fas fa-eye me-2"></i>View My Work
+                        </a>
+                        <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-comments me-2"></i>Let's Talk
+                        </a>
                     </div>
-                    
-                 
+                    <div class="hero-stats d-flex flex-wrap gap-4">
+                        <div class="stat-item">
+                            <div class="stat-number text-warning fw-bold">{{ $siteSettings->projects_count ?? '50+' }}</div>
+                            <div class="stat-label text-white-50">Projects Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number text-warning fw-bold">{{ $siteSettings->avg_increase ?? '86%' }}</div>
+                            <div class="stat-label text-white-50">Avg. Increase</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number text-warning fw-bold">{{ $siteSettings->years_experience ?? '6+' }}</div>
+                            <div class="stat-label text-white-50">Years Experience</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+            <div class="col-lg-6 order-lg-2 order-1 text-center mb-lg-0 mb-4">
+                <div class="profile-image-wrapper">
+                    @if(isset($heroData['image']) && $heroData['image'])
+                        <img src="{{ asset($heroData['image']) }}" alt="{{ $siteSettings->profile_name ?? 'Omar Gamal' }}" class="profile-image img-fluid">
+                    @else
+                        <div class="profile-placeholder">
+                            <i class="fas fa-user fa-5x text-white-50"></i>
+                        </div>
+                    @endif
+                </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- Cool Transition Effect -->
-    <div class="hero-to-portfolio-transition">
-        <div class="transition-wave"></div>
-        <div class="transition-particles">
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-        </div>
-        <div class="transition-shapes">
-            <div class="morph-shape"></div>
-            <div class="morph-shape"></div>
-            <div class="morph-shape"></div>
         </div>
     </div>
     
