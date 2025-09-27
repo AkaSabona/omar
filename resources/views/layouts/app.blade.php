@@ -487,24 +487,6 @@
             padding: 25px 0;
             position: relative;
             overflow: hidden;
-            min-height: 110vh;
-        }
-        
-        /* Responsive background adjustments */
-        @media (max-width: 992px) {
-            .modern-hero-section {
-                background-position: center top !important;
-                min-height: 90vh;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .modern-hero-section {
-                background-size: contain !important;
-                background-position: center top !important;
-                min-height: 70vh;
-                padding: 30px 0;
-            }
         }
         
         /* Disable animated overlays for homepage hero */
