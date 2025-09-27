@@ -37,8 +37,37 @@ body {
 /* Navbar Navigation Styling */
 .navbar-nav .nav-link {
     font-family: 'Cairo', sans-serif !important;
-    font-size: 1.0rem !important;
+    font-size: 1.1rem !important; /* Desktop size */
     font-weight: 700 !important;
+}
+
+/* Mobile responsive styling */
+@media (max-width: 768px) {
+    .navbar-nav .nav-link {
+        font-size: 0.8rem !important; /* Mobile size */
+    }
+    
+    /* Make Get Quote button full width on mobile */
+    .nav-link-cta {
+        padding: 0.4rem 1rem !important;
+        font-size: 0.8rem !important;
+        border-radius: 10px !important;
+        width: 100% !important;
+        margin: 0.2rem 0 !important;
+        text-align: center !important;
+    }
+}
+
+/* Extra small mobile devices - maintain full width */
+@media (max-width: 576px) {
+    .nav-link-cta {
+        padding: 0.35rem 0.8rem !important;
+        font-size: 0.75rem !important;
+        border-radius: 8px !important;
+        width: 100% !important;
+        margin: 0.15rem 0 !important;
+        text-align: center !important;
+    }
 }
 
 .section-padding {
