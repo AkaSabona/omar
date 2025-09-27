@@ -600,6 +600,16 @@
             overflow: hidden;
         }
         
+        /* Desktop-specific styling (won't affect mobile) */
+        @media (min-width: 769px) {
+            .modern-hero-section {
+                height: 600px; /* Adjust this value to change desktop banner height */
+                margin-top: 0px; /* Adjust this value to change top margin */
+                margin-bottom: 100px; /* Adjust this value to change bottom margin */
+                padding: 40px 0;
+            }
+        }
+        
         /* Mobile hero background - completely separate styling */
         @media (max-width: 768px) {
             .modern-hero-section {
