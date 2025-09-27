@@ -43,27 +43,28 @@
         }
         
         .navbar {
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1050;
-            padding: 1rem 0;
+            padding: 0.6rem 0;
             border-bottom: 1px solid transparent;
+            background: linear-gradient(135deg, rgba(12, 12, 12, 0.8) 0%, rgba(26, 26, 46, 0.7) 50%, rgba(83, 52, 131, 0.6) 100%);
         }
         
         .navbar-transparent {
-            background: rgba(15, 20, 25, 0.1);
-            backdrop-filter: blur(20px);
-            box-shadow: none;
-            border-bottom-color: transparent;
+            background: linear-gradient(135deg, rgba(12, 12, 12, 0.3) 0%, rgba(26, 26, 46, 0.2) 50%, rgba(83, 52, 131, 0.1) 100%);
+            backdrop-filter: blur(25px);
+            box-shadow: 0 2px 20px rgba(108, 92, 231, 0.1);
+            border-bottom-color: rgba(108, 92, 231, 0.1);
         }
         
         .navbar-scrolled {
-            background: rgba(15, 20, 25, 0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            border-bottom-color: rgba(74, 144, 226, 0.2);
-            padding: 0.75rem 0;
+            background: linear-gradient(135deg, rgba(12, 12, 12, 0.95) 0%, rgba(26, 26, 46, 0.9) 50%, rgba(83, 52, 131, 0.8) 100%);
+            backdrop-filter: blur(25px);
+            box-shadow: 0 8px 32px rgba(108, 92, 231, 0.3), 0 4px 16px rgba(0, 0, 0, 0.4);
+            border-bottom-color: rgba(108, 92, 231, 0.4);
+            padding: 0.4rem 0;
         }
         
         .navbar-scrolled .navbar-nav .nav-link {
@@ -77,144 +78,174 @@
         .navbar-brand {
             font-family: 'Cairo', sans-serif;
             font-weight: 700;
-            font-size: 2rem;
-            color: var(--primary-color) !important;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            letter-spacing: -0.5px;
-        }
-        
-        .navbar-brand:hover {
-            transform: scale(1.05);
-        }
-        
-        .navbar-brand i {
-            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--space-purple), var(--cosmic-pink), var(--star-yellow));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.08) translateY(-2px);
+            filter: brightness(1.2);
+            text-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+        }
+        
+        .navbar-brand i {
+            background: linear-gradient(135deg, var(--space-blue), var(--cosmic-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand:hover i {
+            transform: rotate(15deg) scale(1.1);
         }
         
         .navbar-nav {
-            gap: 0.5rem;
+            gap: 0.3rem;
         }
         
         .nav-link {
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.75rem;
             letter-spacing: 0.3px;
-            padding: 0.75rem 1.25rem !important;
+            padding: 0.5rem 0.8rem !important;
             border-radius: 8px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.85) !important;
+            backdrop-filter: blur(10px);
         }
         
         .navbar-transparent .nav-link {
-            color: rgba(255, 255, 255, 0.9) !important;
+            color: rgba(255, 255, 255, 0.85) !important;
         }
         
         .navbar-transparent .nav-link:hover {
             color: white !important;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.2), rgba(253, 121, 168, 0.15));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
         }
         
         .navbar-scrolled .nav-link {
-            color: var(--text-dark) !important;
+            color: rgba(255, 255, 255, 0.9) !important;
         }
         
         .navbar-scrolled .nav-link:hover {
             color: white !important;
-        }
-        
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.3), rgba(253, 121, 168, 0.2));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.3);
         }
         
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -2px;
             left: 50%;
             width: 0;
             height: 2px;
-            background: rgba(44, 62, 80, 0.8);
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--space-purple), var(--cosmic-pink));
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(-50%);
+            border-radius: 2px;
         }
         
         .nav-link:hover::after {
-            width: 100%;
+            width: 80%;
         }
         
         .navbar-toggler {
-            border: none;
+            border: 1px solid rgba(108, 92, 231, 0.3);
             padding: 0.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            border-radius: 10px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(108, 92, 231, 0.1);
+            backdrop-filter: blur(10px);
+            color: rgba(255, 255, 255, 0.9);
         }
         
         .navbar-toggler:focus {
-            box-shadow: none;
+            box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25);
+            border-color: rgba(108, 92, 231, 0.5);
+        }
+        
+        .navbar-toggler:hover {
+            background: rgba(108, 92, 231, 0.2);
+            border-color: rgba(108, 92, 231, 0.5);
+            transform: scale(1.05);
         }
         
         .navbar-toggler-icon {
             background-image: none;
-            width: 24px;
+            width: 22px;
             height: 2px;
-            background: currentColor;
+            background: linear-gradient(135deg, var(--space-purple), var(--cosmic-pink));
             border-radius: 2px;
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .navbar-toggler-icon::before,
         .navbar-toggler-icon::after {
             content: '';
             position: absolute;
-            width: 24px;
+            width: 22px;
             height: 2px;
-            background: currentColor;
+            background: linear-gradient(135deg, var(--space-purple), var(--cosmic-pink));
             border-radius: 2px;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .navbar-toggler-icon::before {
-            top: -8px;
+            top: -7px;
         }
         
         .navbar-toggler-icon::after {
-            bottom: -8px;
+            bottom: -7px;
         }
         
         .nav-link-cta {
-            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color)) !important;
+            background: linear-gradient(135deg, var(--space-purple), var(--cosmic-pink)) !important;
             color: white !important;
-            border-radius: 25px !important;
-            padding: 0.6rem 1.5rem !important;
+            border-radius: 20px !important;
+            padding: 0.4rem 1.2rem !important;
             font-weight: 600 !important;
             text-transform: none !important;
-            font-size: 0.9rem !important;
+            font-size: 0.75rem !important;
             margin-left: 0.5rem;
-            box-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4), 0 0 30px rgba(253, 121, 168, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
         
         .nav-link-cta:hover {
-            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color)) !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4) !important;
+            background: linear-gradient(135deg, var(--cosmic-pink), var(--star-yellow)) !important;
+            transform: translateY(-3px) scale(1.05) !important;
+            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.6), 0 0 40px rgba(253, 121, 168, 0.4) !important;
+            border-color: rgba(255, 255, 255, 0.2);
         }
         
         .navbar-scrolled .nav-link-cta {
-            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color)) !important;
+            background: linear-gradient(135deg, var(--space-purple), var(--cosmic-pink)) !important;
             color: white !important;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.5), 0 0 30px rgba(253, 121, 168, 0.3);
         }
         
         .navbar-scrolled .nav-link-cta:hover {
-            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color)) !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4) !important;
+            background: linear-gradient(135deg, var(--cosmic-pink), var(--star-yellow)) !important;
+            transform: translateY(-3px) scale(1.05) !important;
+            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.7), 0 0 40px rgba(253, 121, 168, 0.5) !important;
         }
         
         .navbar-scrolled .nav-link-cta::before {
@@ -223,35 +254,75 @@
         
         @media (max-width: 991.98px) {
             .navbar {
-                padding: 0.75rem 0;
+                padding: 0.6rem 0;
+                background: linear-gradient(135deg, rgba(12, 12, 12, 0.95) 0%, rgba(26, 26, 46, 0.9) 50%, rgba(83, 52, 131, 0.85) 100%);
             }
             
             .navbar-brand {
-                font-size: 1.6rem;
+                font-size: 1.4rem;
+            }
+            
+            .navbar-brand i {
+                font-size: 1.3rem;
             }
             
             .nav-link {
-                padding: 0.75rem 0 !important;
-                margin: 0.25rem 0;
+                padding: 0.5rem 1rem !important;
+                margin: 0.15rem 0;
                 text-align: center;
-                border-radius: 6px;
+                border-radius: 8px;
+                font-size: 0.8rem;
+                letter-spacing: 0.3px;
+                background: rgba(255, 255, 255, 0.05);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-link:hover {
+                background: linear-gradient(135deg, rgba(108, 92, 231, 0.3), rgba(253, 121, 168, 0.2)) !important;
+                transform: none !important;
+                box-shadow: 0 2px 10px rgba(108, 92, 231, 0.3) !important;
             }
             
             .nav-link-cta {
-                margin: 1rem auto 0.5rem;
+                margin: 0.8rem auto 0.3rem;
                 display: inline-block;
                 text-align: center;
-                max-width: 200px;
+                max-width: 180px;
+                padding: 0.6rem 1.4rem !important;
+                font-size: 0.85rem !important;
+                border-radius: 25px !important;
+            }
+            
+            .nav-link-cta:hover {
+                transform: scale(1.02) !important;
+                box-shadow: 0 4px 20px rgba(108, 92, 231, 0.5) !important;
             }
             
             .navbar-collapse {
-                margin-top: 1rem;
-                padding-top: 1rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                margin-top: 0.8rem;
+                padding: 0.8rem 0.5rem;
+                border-top: 1px solid rgba(108, 92, 231, 0.3);
+                background: linear-gradient(135deg, rgba(12, 12, 12, 0.8) 0%, rgba(26, 26, 46, 0.7) 100%);
+                border-radius: 12px;
+                backdrop-filter: blur(15px);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             }
             
             .navbar-scrolled .navbar-collapse {
-                border-top-color: rgba(0, 0, 0, 0.1);
+                border-top-color: rgba(108, 92, 231, 0.4);
+                background: linear-gradient(135deg, rgba(12, 12, 12, 0.9) 0%, rgba(26, 26, 46, 0.8) 100%);
+            }
+            
+            .navbar-toggler {
+                border: 1px solid rgba(108, 92, 231, 0.3);
+                background: rgba(108, 92, 231, 0.1);
+                backdrop-filter: blur(10px);
+                padding: 0.4rem 0.6rem;
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25);
             }
         }
         
@@ -587,7 +658,9 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-transparent">
         <div class="container">
-
+            <a class="navbar-brand" href="{{ route('home') }}">
+                <i class="fas fa-pen-nib me-2"></i>Omar
+            </a>
             
             <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
