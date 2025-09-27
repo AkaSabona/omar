@@ -563,6 +563,19 @@
                 display: none !important;
             }
         }
+        
+        /* Portfolio showcase section mobile styles */
+        @media (max-width: 768px) {
+            .portfolio-showcase-section {
+                padding: 0px 0 !important;
+                position: relative !important;
+                overflow: hidden !important;
+                background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #2c3e50 100%) !important;
+                color: white !important;
+                margin-top: -151px !important;
+                padding-top: 208px !important;
+            }
+        }
     </style>
     
     @stack('styles')
