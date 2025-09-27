@@ -497,6 +497,9 @@
                 background-position: center center !important;
                 padding: 0px 0;
                 min-height: 60vh;
+                height: 75vh;
+            margin-top: -90px;
+    
             }
         }
         
@@ -506,8 +509,8 @@
                 background-size: contain !important;
                 background-position: center center !important;
                 padding: 1px 0;
-                height: 68vh;
-                margin-top: -8px;
+                height: 67vh;
+                margin-top: -60px;
             }
         }
         
