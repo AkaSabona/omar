@@ -542,6 +542,27 @@
                 font-size: 1.75rem !important;
             }
         }
+        
+        /* Hide scroll down indicator on mobile devices */
+        @media (max-width: 768px) {
+            .scroll-down-indicator {
+                display: none !important;
+            }
+        }
+        
+        /* Add margin-top for container position-relative on mobile */
+        @media (max-width: 768px) {
+            .container.position-relative {
+                margin-top: -160px !important;
+            }
+        }
+        
+        /* Hide transition-wave element on mobile devices */
+        @media (max-width: 768px) {
+            .transition-wave {
+                display: none !important;
+            }
+        }
     </style>
     
     @stack('styles')
