@@ -47,26 +47,43 @@ body {
         font-size: 0.8rem !important; /* Mobile size */
     }
     
-    /* Make Get Quote button full width on mobile */
+    /* Center the Get Quote button container on mobile */
+    .navbar-nav .nav-item:last-child {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+    }
+    
+    /* Make Get Quote button centered on mobile */
     .nav-link-cta {
         padding: 0.4rem 1rem !important;
         font-size: 0.8rem !important;
         border-radius: 10px !important;
-        width: 100% !important;
-        margin: 0.2rem 0 !important;
+        width: auto !important;
+        max-width: 150px !important;
+        margin: 0.2rem auto !important;
         text-align: center !important;
+        display: inline-block !important;
     }
 }
 
-/* Extra small mobile devices - maintain full width */
+/* Extra small mobile devices - maintain centered */
 @media (max-width: 576px) {
+    .navbar-nav .nav-item:last-child {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+    }
+    
     .nav-link-cta {
         padding: 0.35rem 0.8rem !important;
         font-size: 0.75rem !important;
         border-radius: 8px !important;
-        width: 100% !important;
-        margin: 0.15rem 0 !important;
+        width: auto !important;
+        max-width: 130px !important;
+        margin: 0.15rem auto !important;
         text-align: center !important;
+        display: inline-block !important;
     }
 }
 
