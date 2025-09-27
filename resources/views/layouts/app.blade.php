@@ -523,6 +523,25 @@
         .modern-hero-section .space-background {
             display: none !important;
         }
+        
+        /* Featured Client Work responsive font sizes */
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 2.5rem !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem !important;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 1.75rem !important;
+            }
+        }
     </style>
     
     @stack('styles')
