@@ -792,8 +792,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Mobile Small (480px and below) */
 @media (max-width: 480px) {
     .clients-grid {
-        grid-template-columns: repeat(1, 1fr);
-        gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
         max-width: 95%;
         padding: 1rem;
     }
