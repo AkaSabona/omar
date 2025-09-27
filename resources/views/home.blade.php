@@ -889,16 +889,6 @@
 @section('content')
 <!-- Hero Section -->
 <section class="modern-hero-section">
-                    </div>
-                    
-                 
-                </div>
-            </div>
-            
-            </div>
-        </div>
-    </div>
-    
     <!-- Cool Transition Effect -->
     <div class="hero-to-portfolio-transition">
         <div class="transition-wave"></div>
