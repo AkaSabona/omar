@@ -267,12 +267,12 @@
             }
             
             .nav-link {
-                padding: 0.3rem 0.6rem !important;
-                margin: 0.1rem 0;
+                padding: 0.2rem 0.4rem !important;
+                margin: 0.05rem 0;
                 text-align: center;
-                border-radius: 6px;
-                font-size: 0.7rem;
-                letter-spacing: 0.2px;
+                border-radius: 4px;
+                font-size: 0.6rem;
+                letter-spacing: 0.1px;
                 background: rgba(255, 255, 255, 0.05);
                 backdrop-filter: blur(10px);
                 border: 1px solid rgba(255, 255, 255, 0.1);
@@ -285,13 +285,13 @@
             }
             
             .nav-link-cta {
-                margin: 0.5rem auto 0.2rem;
+                margin: 0.3rem auto 0.1rem;
                 display: inline-block;
                 text-align: center;
-                max-width: 150px;
-                padding: 0.4rem 1rem !important;
-                font-size: 0.7rem !important;
-                border-radius: 20px !important;
+                max-width: 120px;
+                padding: 0.3rem 0.7rem !important;
+                font-size: 0.6rem !important;
+                border-radius: 15px !important;
             }
             
             .nav-link-cta:hover {
@@ -300,11 +300,11 @@
             }
             
             .navbar-collapse {
-                margin-top: 0.4rem;
-                padding: 0.4rem 0.3rem;
+                margin-top: 0.2rem;
+                padding: 0.2rem 0.2rem;
                 border-top: 1px solid rgba(108, 92, 231, 0.3);
                 background: linear-gradient(135deg, rgba(12, 12, 12, 0.8) 0%, rgba(26, 26, 46, 0.7) 100%);
-                border-radius: 8px;
+                border-radius: 6px;
                 backdrop-filter: blur(15px);
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             }
@@ -341,24 +341,24 @@
             }
             
             .nav-link {
-                padding: 0.25rem 0.5rem !important;
-                margin: 0.05rem 0;
-                font-size: 0.65rem;
-                border-radius: 4px;
+                padding: 0.15rem 0.3rem !important;
+                margin: 0.03rem 0;
+                font-size: 0.55rem;
+                border-radius: 3px;
             }
             
             .nav-link-cta {
-                margin: 0.3rem auto 0.1rem;
-                max-width: 130px;
-                padding: 0.3rem 0.8rem !important;
-                font-size: 0.65rem !important;
-                border-radius: 15px !important;
+                margin: 0.2rem auto 0.05rem;
+                max-width: 100px;
+                padding: 0.2rem 0.5rem !important;
+                font-size: 0.55rem !important;
+                border-radius: 12px !important;
             }
             
             .navbar-collapse {
-                margin-top: 0.2rem;
-                padding: 0.3rem 0.2rem;
-                border-radius: 6px;
+                margin-top: 0.1rem;
+                padding: 0.15rem 0.15rem;
+                border-radius: 4px;
             }
             
             .navbar-toggler {
@@ -699,7 +699,7 @@
     <nav class="navbar navbar-expand-lg fixed-top navbar-transparent">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">
-                <i class="fas fa-pen-nib me-2"></i>Omar
+                <i class="fas fa-pen-nib me-2"></i>Omar Gamal
             </a>
             
             <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
