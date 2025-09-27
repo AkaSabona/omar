@@ -889,22 +889,12 @@
 @section('content')
 <!-- Hero Section -->
 <section class="modern-hero-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="hero-content scroll-slide-left">
-                    <div class="mb-4 scroll-fade-in">
                     </div>
-                    <!-- Hero title removed as requested -->
-                    <!-- Hero subtitle removed as requested -->
-                    <!-- Hero stats removed as requested -->
+                    
                  
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="hero-visual scroll-slide-right">
-                    <!-- Profile grid removed as requested -->
-                </div>
+            
             </div>
         </div>
     </div>
