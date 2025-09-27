@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Professional Copywriter & Digital Content Creator')
-@section('description', 'Senior Copywriter and Digital Content Creator specializing in compelling web copy, email marketing, and content strategy that drives results.')
+@section('title', 'Professional Profile')
+@section('description', 'A modern professional portfolio showcasing work, projects, and skills.')
 
 @push('styles')
 <style>
@@ -889,70 +889,21 @@
 @section('content')
 <!-- Hero Section -->
 <section class="modern-hero-section">
-    <div class="hero-background">
-    </div>
     <div class="container">
-        <div class="row align-items-center min-vh-100">
+        <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="hero-content scroll-slide-left">
                     <div class="mb-4 scroll-fade-in">
                     </div>
-                    <h1 class="hero-title mb-4 scroll-animate">
-                        {!! $heroData['title'] !!}
-                    </h1>
-                    <p class="hero-subtitle mb-5 scroll-animate">
-                        {{ $heroData['subtitle'] }}
-                    </p>
-                    <div class="hero-stats mb-5 scroll-animate">
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="stat-item scroll-scale">
-                                    <div class="stat-number">{{ $siteSettings->projects_count ?? '150+' }}</div>
-                                    <div class="stat-label">Projects</div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="stat-item scroll-scale">
-                                    <div class="stat-number">{{ $siteSettings->avg_increase ?? '86%' }}</div>
-                                    <div class="stat-label">Clients</div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="stat-item scroll-scale">
-                                    <div class="stat-number">{{ $siteSettings->years_experience ?? '6+' }}</div>
-                                    <div class="stat-label">Years Exp.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Hero title removed as requested -->
+                    <!-- Hero subtitle removed as requested -->
+                    <!-- Hero stats removed as requested -->
                  
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="hero-visual scroll-slide-right">
-                    <div class="profile-card {{ $animationData['scroll_scale_enabled'] ? 'scroll-scale' : '' }}">
-                        <div class="profile-image-wrapper">
-                            <img src="{{ asset($heroData['image']) }}" alt="Professional Profile" class="profile-image">
-                            <div class="profile-badge">
-                                <i class="fas fa-check"></i>
-                            </div>
-                        </div>
-                        <div class="profile-info">
-                            <h4 class="cairo-font">{{ $siteSettings->profile_name ?? 'Omar Gamal' }}</h4>
-                            <p>{{ $siteSettings->profile_title ?? 'Senior Copywriter' }}</p>
-                            <div class="profile-skills">
-                                @if($siteSettings && $siteSettings->profile_skills)
-                                    @foreach($siteSettings->profile_skills as $skill)
-                                        <span class="skill-tag">{{ $skill }}</span>
-                                    @endforeach
-                                @else
-                                    <span class="skill-tag">Web Copy</span>
-                                    <span class="skill-tag">Email Marketing</span>
-                                    <span class="skill-tag">Content Strategy</span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Profile grid removed as requested -->
                 </div>
             </div>
         </div>
@@ -976,28 +927,6 @@
             <div class="morph-shape"></div>
             <div class="morph-shape"></div>
             <div class="morph-shape"></div>
-        </div>
-    </div>
-    
-    <!-- Space Background Elements -->
-    <div class="space-background">
-        <div class="stars-layer">
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-        </div>
-        <div class="nebula-layer"></div>
-        <div class="floating-debris">
-            <div class="debris debris-1"></div>
-            <div class="debris debris-2"></div>
-            <div class="debris debris-3"></div>
         </div>
     </div>
     

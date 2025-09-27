@@ -840,6 +840,94 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+/* Mobile responsive styles for transition section */
+@media (max-width: 768px) {
+    .hero-to-portfolio-transition {
+        height: 60px !important; /* Much more aggressive reduction */
+        min-height: 60px !important;
+    }
+    
+    .transition-shapes {
+        margin-top: 0 !important; /* Remove negative margin */
+        height: 60px !important;
+    }
+    
+    .transition-wave {
+        height: 60px !important;
+    }
+    
+    .morph-shape:nth-child(1) {
+        width: 25px !important;
+        height: 25px !important;
+        top: 10% !important;
+    }
+    
+    .morph-shape:nth-child(2) {
+        width: 20px !important;
+        height: 20px !important;
+        top: 30% !important;
+    }
+    
+    .morph-shape:nth-child(3) {
+        width: 30px !important;
+        height: 30px !important;
+        top: 20% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-to-portfolio-transition {
+        height: 40px !important; /* Even smaller for mobile */
+        min-height: 40px !important;
+    }
+    
+    .transition-shapes {
+        margin-top: 0 !important;
+        height: 40px !important;
+    }
+    
+    .transition-wave {
+        height: 40px !important;
+    }
+    
+    .morph-shape:nth-child(1) {
+        width: 15px !important;
+        height: 15px !important;
+        top: 5% !important;
+    }
+    
+    .morph-shape:nth-child(2) {
+        width: 12px !important;
+        height: 12px !important;
+        top: 15% !important;
+    }
+    
+    .morph-shape:nth-child(3) {
+        width: 18px !important;
+        height: 18px !important;
+        top: 10% !important;
+    }
+}
+
+@media (max-width: 320px) {
+    .hero-to-portfolio-transition {
+        height: 30px !important; /* Minimal height for very small screens */
+        min-height: 30px !important;
+    }
+    
+    .transition-shapes {
+        height: 30px !important;
+    }
+    
+    .transition-wave {
+        height: 30px !important;
+    }
+    
+    .morph-shape {
+        display: none !important; /* Hide shapes on very small screens */
+    }
+}
+
 .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
 .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
 .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
@@ -1223,6 +1311,7 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.8;
     margin-bottom: 1rem;
 }
+
 
 .profile-skills {
     display: flex;

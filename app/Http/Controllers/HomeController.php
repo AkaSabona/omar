@@ -28,8 +28,8 @@ class HomeController extends Controller
     private function getHeroData()
     {
         $defaultData = [
-            'title' => 'Copywriter &<br><span class="gradient-text">Content Creator</span>',
-            'subtitle' => 'Transforming ideas into compelling content that drives results and engages audiences.',
+            'title' => '',
+            'subtitle' => '',
             'image' => 'images/me.png'
         ];
 

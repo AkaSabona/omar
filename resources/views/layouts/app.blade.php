@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Professional Copywriter & Content Creator')</title>
-    <meta name="description" content="@yield('description', 'Senior Copywriter and Digital Content Creator specializing in compelling web copy, email marketing, and content strategy.')">
+    <title>@yield('title', 'Professional Profile')</title>
+<meta name="description" content="@yield('description', 'A modern professional portfolio showcasing work, projects, and skills.')">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -478,6 +478,46 @@
         .animate-on-scroll.animated {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Homepage hero background image override */
+        .modern-hero-section {
+            background: url('/storage/summernote-images/cover%201Cover%202.png') center center / cover no-repeat, var(--space-gradient) !important;
+            color: white;
+            padding: 25px 0;
+            position: relative;
+            overflow: hidden;
+            min-height: 110vh;
+        }
+        
+        /* Responsive background adjustments */
+        @media (max-width: 992px) {
+            .modern-hero-section {
+                background-position: center top !important;
+                min-height: 90vh;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .modern-hero-section {
+                background-size: contain !important;
+                background-position: center top !important;
+                min-height: 70vh;
+                padding: 30px 0;
+            }
+        }
+        
+        /* Disable animated overlays for homepage hero */
+        .modern-hero-section::before,
+        .modern-hero-section::after {
+            display: none !important;
+            content: none !important;
+            background: none !important;
+            animation: none !important;
+        }
+        .modern-hero-section .hero-background,
+        .modern-hero-section .space-background {
+            display: none !important;
         }
     </style>
     

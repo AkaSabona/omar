@@ -127,7 +127,7 @@
                         <div class="row g-2">
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="projects_count" name="projects_count" value="{{ $siteSettings->projects_count ?? '150+' }}" required>
+                                    <input type="text" class="form-control" id="projects_count" name="projects_count" value="{{ $siteSettings->projects_count ?? '' }}" required>
                                     <label for="projects_count"><i class="fas fa-project-diagram me-2"></i>Projects Count</label>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="profile_title" name="profile_title" value="{{ $siteSettings->profile_title ?? 'Senior Copywriter' }}" required>
+                                    <input type="text" class="form-control" id="profile_title" name="profile_title" value="{{ $siteSettings->profile_title ?? '' }}" required>
                                     <label for="profile_title"><i class="fas fa-briefcase me-2"></i>Profile Title</label>
                                 </div>
                             </div>
@@ -245,7 +245,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" id="featured_subtitle" name="featured_subtitle" style="height: 100px" required>{{ $featuredClientWork->subtitle ?? 'Real projects, real results. See how strategic copywriting transformed these brands.' }}</textarea>
+                                    <textarea class="form-control" id="featured_subtitle" name="featured_subtitle" style="height: 100px" required>{{ $featuredClientWork->subtitle ?? '' }}</textarea>
                                     <label for="featured_subtitle"><i class="fas fa-align-left me-2"></i>Section Description</label>
                                 </div>
                             </div>

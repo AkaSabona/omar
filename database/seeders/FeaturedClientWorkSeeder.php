@@ -16,7 +16,7 @@ class FeaturedClientWorkSeeder extends Seeder
     {
         FeaturedClientWork::create([
             'title' => 'Featured Client Work',
-            'subtitle' => 'Real projects, real results. See how strategic copywriting transformed these brands.',
+            'subtitle' => '',
             'position' => 1
         ]);
     }
