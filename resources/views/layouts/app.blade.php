@@ -509,7 +509,7 @@
                 background-size: contain !important;
                 background-position: center center !important;
                 padding: 1px 0;
-                height: 67vh;
+                height: 62vh;
                 margin-top: -60px;
             }
         }
