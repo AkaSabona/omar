@@ -287,12 +287,6 @@
             
             <ul class="nav flex-column pt-3">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-                        <i class="fas fa-tachometer-alt"></i>
-                        Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('admin.portfolio-cards') ? 'active' : '' }}" href="{{ route('admin.portfolio-cards') }}">
                         <i class="fas fa-th-large"></i>
                         Portfolio Cards
