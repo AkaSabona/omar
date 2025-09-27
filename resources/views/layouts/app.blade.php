@@ -480,13 +480,35 @@
             transform: translateY(0);
         }
 
-        /* Homepage hero background image override */
+        /* Desktop hero background image */
         .modern-hero-section {
-            background: url('/storage/summernote-images/cover%201Cover%202.png') center center / cover no-repeat, var(--space-gradient) !important;
+            background: url('/storage/summernote-images/cover%201Cover%202.png') center top / cover no-repeat, var(--space-gradient) !important;
             color: white;
             padding: 25px 0;
             position: relative;
             overflow: hidden;
+        }
+        
+        /* Mobile hero background - completely separate styling */
+        @media (max-width: 768px) {
+            .modern-hero-section {
+                background: url('/storage/summernote-images/cover%201Cover%202.png') center center / contain no-repeat, var(--space-gradient) !important;
+                background-size: contain !important;
+                background-position: center center !important;
+                padding: 0px 0;
+                min-height: 60vh;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .modern-hero-section {
+                background: url(/storage/summernote-images/cover%201Cover%202.png) center center / contain no-repeat, var(--space-gradient) !important;
+                background-size: contain !important;
+                background-position: center center !important;
+                padding: 1px 0;
+                height: 86vh;
+                margin-top: -87px;
+            }
         }
         
         /* Disable animated overlays for homepage hero */
