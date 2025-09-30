@@ -1600,7 +1600,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const seconds = remainingSeconds % 60;
         const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
         
-        submitButton.innerHTML = `<i class="fas fa-clock me-2"></i>Pleaste wait for ${timeString}`;
+        submitButton.innerHTML = `<i class="fas fa-clock me-2"></i>Wait ${timeString}`;
         
         // Update the alert message if it exists
         const alertMessage = document.querySelector('.contact-form-wrapper .alert-danger');

@@ -68,8 +68,8 @@ class ContactAttempt extends Model
                 $attempt->increment('attempt_count');
                 $attempt->last_attempt_at = Carbon::now();
                 
-                // Block if too many attempts (2 or more in 5 minutes)
-                if ($attempt->attempt_count >= 2) {
+                // Block if too many attempts (more than 3 in 5 minutes)
+                if ($attempt->attempt_count >= 3) {
                     $attempt->blocked_until = Carbon::now()->addMinutes(15); // Block for 15 minutes
                 }
                 
