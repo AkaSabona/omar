@@ -42,6 +42,25 @@ class ContactController extends Controller
                 
                 return redirect()->back()->withErrors(['rate_limit' => $message]);
             }
+            
+            // Check if this attempt would exceed the limit BEFORE processing
+            if (ContactAttempt::wouldExceedLimit($ipAddress)) {
+                // Record this attempt and block
+                ContactAttempt::recordAttempt($ipAddress, $request->input('email', ''), $userAgent);
+                
+                $message = "Too many contact attempts. You have been temporarily blocked for 15 minutes.";
+                
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $message,
+                        'blocked' => true,
+                        'remaining_time' => 900 // 15 minutes
+                    ], 429);
+                }
+                
+                return redirect()->back()->withErrors(['rate_limit' => $message]);
+            }
         } catch (\Exception $e) {
             // If rate limiting fails (e.g., table doesn't exist), log the error and continue
             Log::warning('Rate limiting check failed: ' . $e->getMessage());

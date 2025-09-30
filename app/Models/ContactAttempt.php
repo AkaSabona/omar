@@ -53,6 +53,28 @@ class ContactAttempt extends Model
     }
 
     /**
+     * Check if the next attempt would exceed the rate limit
+     */
+    public static function wouldExceedLimit($ipAddress)
+    {
+        $attempt = self::where('ip_address', $ipAddress)->first();
+        
+        if (!$attempt) {
+            return false; // First attempt is always allowed
+        }
+        
+        // Check if last attempt was within rate limit window (5 minutes)
+        $timeSinceLastAttempt = Carbon::now()->diffInMinutes($attempt->last_attempt_at);
+        
+        if ($timeSinceLastAttempt < 5) {
+            // If this would be the 2nd attempt within 5 minutes, it would exceed the limit
+            return $attempt->attempt_count >= 1;
+        }
+        
+        return false; // Outside the window, so it's allowed
+    }
+
+    /**
      * Record a contact attempt
      */
     public static function recordAttempt($ipAddress, $email, $userAgent)
@@ -68,8 +90,8 @@ class ContactAttempt extends Model
                 $attempt->increment('attempt_count');
                 $attempt->last_attempt_at = Carbon::now();
                 
-                // Block if too many attempts (more than 3 in 5 minutes)
-                if ($attempt->attempt_count >= 3) {
+                // Block if this is the 2nd attempt within 5 minutes
+                if ($attempt->attempt_count >= 2) {
                     $attempt->blocked_until = Carbon::now()->addMinutes(15); // Block for 15 minutes
                 }
                 
