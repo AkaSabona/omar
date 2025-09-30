@@ -1550,6 +1550,8 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error checking rate limit status:', error);
+            // If rate limit check fails, allow form submission but log the error
+            // This ensures the form still works even if rate limiting is temporarily unavailable
         });
     }
     
@@ -1738,13 +1740,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     showFormMessage('error', error.data.message || 'Please correct the errors below.');
                 } else if (error.rateLimited) {
                     // Handle rate limiting
-                    if (error.data.remaining_time) {
+                    if (error.data && error.data.remaining_time) {
                         showRateLimitMessage(error.data.remaining_time);
                     } else {
-                        showFormMessage('error', error.data.message || 'Too many attempts. Please wait before trying again.');
+                        showFormMessage('error', (error.data && error.data.message) || 'Too many attempts. Please wait before trying again.');
                     }
                 } else {
-                    showFormMessage('error', 'An error occurred. Please try again.');
+                    // For any other errors (including server errors), show a generic message
+                    showFormMessage('error', 'An error occurred while sending your message. Please try again later.');
                 }
                 
                 // Hide overlay immediately for errors

@@ -22,24 +22,29 @@ class ContactController extends Controller
         $ipAddress = $request->ip();
         $userAgent = $request->userAgent();
         
-        // Check if IP is currently blocked
-        if (ContactAttempt::isBlocked($ipAddress)) {
-            $remainingTime = ContactAttempt::getBlockTimeRemaining($ipAddress);
-            $minutes = floor($remainingTime / 60);
-            $seconds = $remainingTime % 60;
-            
-            $message = "Too many contact attempts. Please wait {$minutes} minutes and {$seconds} seconds before trying again.";
-            
-            if ($request->ajax() || $request->wantsJson()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => $message,
-                    'blocked' => true,
-                    'remaining_time' => $remainingTime
-                ], 429);
+        // Check if IP is currently blocked (with error handling for missing table)
+        try {
+            if (ContactAttempt::isBlocked($ipAddress)) {
+                $remainingTime = ContactAttempt::getBlockTimeRemaining($ipAddress);
+                $minutes = floor($remainingTime / 60);
+                $seconds = $remainingTime % 60;
+                
+                $message = "Too many contact attempts. Please wait {$minutes} minutes and {$seconds} seconds before trying again.";
+                
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $message,
+                        'blocked' => true,
+                        'remaining_time' => $remainingTime
+                    ], 429);
+                }
+                
+                return redirect()->back()->withErrors(['rate_limit' => $message]);
             }
-            
-            return redirect()->back()->withErrors(['rate_limit' => $message]);
+        } catch (\Exception $e) {
+            // If rate limiting fails (e.g., table doesn't exist), log the error and continue
+            Log::warning('Rate limiting check failed: ' . $e->getMessage());
         }
         
         try {
@@ -62,8 +67,13 @@ class ContactController extends Controller
             throw $e; // Re-throw for normal requests
         }
 
-        // Record the contact attempt for rate limiting
-        ContactAttempt::recordAttempt($ipAddress, $validated['email'], $userAgent);
+        // Record the contact attempt for rate limiting (with error handling)
+        try {
+            ContactAttempt::recordAttempt($ipAddress, $validated['email'], $userAgent);
+        } catch (\Exception $e) {
+            // If recording attempt fails, log the error but continue with form submission
+            Log::warning('Failed to record contact attempt: ' . $e->getMessage());
+        }
 
         // Save to database with default values for removed fields
         $savedMessage = Message::create(array_merge($validated, [
@@ -212,20 +222,31 @@ class ContactController extends Controller
     {
         $ipAddress = $request->ip();
         
-        if (ContactAttempt::isBlocked($ipAddress)) {
-            $remainingTime = ContactAttempt::getBlockTimeRemaining($ipAddress);
+        try {
+            if (ContactAttempt::isBlocked($ipAddress)) {
+                $remainingTime = ContactAttempt::getBlockTimeRemaining($ipAddress);
+                
+                return response()->json([
+                    'blocked' => true,
+                    'remaining_time' => $remainingTime,
+                    'message' => 'You are temporarily blocked from sending messages.'
+                ]);
+            }
             
             return response()->json([
-                'blocked' => true,
-                'remaining_time' => $remainingTime,
-                'message' => 'You are temporarily blocked from sending messages.'
+                'blocked' => false,
+                'remaining_time' => 0,
+                'message' => 'You can send a message.'
+            ]);
+        } catch (\Exception $e) {
+            // If rate limiting check fails, return unblocked status
+            Log::warning('Rate limiting status check failed: ' . $e->getMessage());
+            
+            return response()->json([
+                'blocked' => false,
+                'remaining_time' => 0,
+                'message' => 'Rate limiting temporarily unavailable.'
             ]);
         }
-        
-        return response()->json([
-            'blocked' => false,
-            'remaining_time' => 0,
-            'message' => 'You can send a message.'
-        ]);
     }
 }
