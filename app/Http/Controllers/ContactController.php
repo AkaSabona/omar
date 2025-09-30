@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use App\Models\Message;
 use App\Models\SiteSetting;
+use App\Models\ContactAttempt;
 
 class ContactController extends Controller
 {
@@ -17,6 +18,30 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
+        // Get client IP address and user agent
+        $ipAddress = $request->ip();
+        $userAgent = $request->userAgent();
+        
+        // Check if IP is currently blocked
+        if (ContactAttempt::isBlocked($ipAddress)) {
+            $remainingTime = ContactAttempt::getBlockTimeRemaining($ipAddress);
+            $minutes = floor($remainingTime / 60);
+            $seconds = $remainingTime % 60;
+            
+            $message = "Too many contact attempts. Please wait {$minutes} minutes and {$seconds} seconds before trying again.";
+            
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $message,
+                    'blocked' => true,
+                    'remaining_time' => $remainingTime
+                ], 429);
+            }
+            
+            return redirect()->back()->withErrors(['rate_limit' => $message]);
+        }
+        
         try {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
@@ -36,6 +61,9 @@ class ContactController extends Controller
             }
             throw $e; // Re-throw for normal requests
         }
+
+        // Record the contact attempt for rate limiting
+        ContactAttempt::recordAttempt($ipAddress, $validated['email'], $userAgent);
 
         // Save to database with default values for removed fields
         $savedMessage = Message::create(array_merge($validated, [
@@ -175,5 +203,29 @@ class ContactController extends Controller
 
         return redirect(route('home') . '#cta-section')
                         ->with('success', 'Thank you for your message! I\'ll get back to you within 24 hours.');
+    }
+
+    /**
+     * Get rate limiting status for the current IP
+     */
+    public function rateLimitStatus(Request $request)
+    {
+        $ipAddress = $request->ip();
+        
+        if (ContactAttempt::isBlocked($ipAddress)) {
+            $remainingTime = ContactAttempt::getBlockTimeRemaining($ipAddress);
+            
+            return response()->json([
+                'blocked' => true,
+                'remaining_time' => $remainingTime,
+                'message' => 'You are temporarily blocked from sending messages.'
+            ]);
+        }
+        
+        return response()->json([
+            'blocked' => false,
+            'remaining_time' => 0,
+            'message' => 'You can send a message.'
+        ]);
     }
 }

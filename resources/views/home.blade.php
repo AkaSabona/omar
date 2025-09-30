@@ -1530,11 +1530,106 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Rate limiting functionality
+    let rateLimitTimer = null;
+    let isBlocked = false;
+    
+    // Check rate limiting status on page load
+    function checkRateLimitStatus() {
+        fetch('/contact/rate-limit-status', {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.blocked) {
+                showRateLimitMessage(data.remaining_time);
+            }
+        })
+        .catch(error => {
+            console.error('Error checking rate limit status:', error);
+        });
+    }
+    
+    // Show rate limiting message with countdown
+    function showRateLimitMessage(remainingTime) {
+        isBlocked = true;
+        const submitButton = document.querySelector('#ctaContactForm button[type="submit"]');
+        const form = document.getElementById('ctaContactForm');
+        
+        if (submitButton && form) {
+            // Disable form
+            const formInputs = form.querySelectorAll('input, textarea, button');
+            formInputs.forEach(input => input.disabled = true);
+            
+            // Start countdown
+            updateCountdown(remainingTime);
+            
+            // Show message
+            showFormMessage('error', `Too many contact attempts. Please wait before trying again.`);
+        }
+    }
+    
+    // Update countdown timer
+    function updateCountdown(remainingSeconds) {
+        const submitButton = document.querySelector('#ctaContactForm button[type="submit"]');
+        
+        if (remainingSeconds <= 0) {
+            // Re-enable form
+            isBlocked = false;
+            const form = document.getElementById('ctaContactForm');
+            const formInputs = form.querySelectorAll('input, textarea, button');
+            formInputs.forEach(input => input.disabled = false);
+            
+            submitButton.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Send Message';
+            
+            // Remove rate limit message
+            const existingAlerts = document.querySelectorAll('.contact-form-wrapper .alert-danger');
+            existingAlerts.forEach(alert => alert.remove());
+            
+            if (rateLimitTimer) {
+                clearInterval(rateLimitTimer);
+                rateLimitTimer = null;
+            }
+            return;
+        }
+        
+        const minutes = Math.floor(remainingSeconds / 60);
+        const seconds = remainingSeconds % 60;
+        const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        
+        submitButton.innerHTML = `<i class="fas fa-clock me-2"></i>Pleaste wait for ${timeString}`;
+        
+        // Update the alert message if it exists
+        const alertMessage = document.querySelector('.contact-form-wrapper .alert-danger');
+        if (alertMessage) {
+            alertMessage.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Too many contact attempts. Please wait ${timeString} before trying again.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+        }
+        
+        // Set timer for next update
+        rateLimitTimer = setTimeout(() => updateCountdown(remainingSeconds - 1), 1000);
+    }
+    
+    // Check rate limit status on page load
+    checkRateLimitStatus();
+
     // Handle CTA contact form submission with AJAX to prevent page scrolling
     const ctaContactForm = document.getElementById('ctaContactForm');
     if (ctaContactForm) {
         ctaContactForm.addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
+            
+            // Check if currently blocked
+            if (isBlocked) {
+                showFormMessage('error', 'Please wait before sending another message.');
+                return;
+            }
             
             const formData = new FormData(this);
             const submitButton = this.querySelector('button[type="submit"]');
@@ -1566,6 +1661,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Validation errors
                     return response.json().then(data => {
                         throw { validation: true, data: data };
+                    });
+                } else if (response.status === 429) {
+                    // Rate limiting error
+                    return response.json().then(data => {
+                        throw { rateLimited: true, data: data };
                     });
                 } else {
                     throw new Error('Network response was not ok');
@@ -1636,6 +1736,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Handle validation errors
                     displayValidationErrors(error.data.errors);
                     showFormMessage('error', error.data.message || 'Please correct the errors below.');
+                } else if (error.rateLimited) {
+                    // Handle rate limiting
+                    if (error.data.remaining_time) {
+                        showRateLimitMessage(error.data.remaining_time);
+                    } else {
+                        showFormMessage('error', error.data.message || 'Too many attempts. Please wait before trying again.');
+                    }
                 } else {
                     showFormMessage('error', 'An error occurred. Please try again.');
                 }

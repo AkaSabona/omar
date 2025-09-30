@@ -30,6 +30,7 @@ Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio
 Route::get('/portfolio/{id}', [PortfolioController::class, 'show'])->name('portfolio.show');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/contact/rate-limit-status', [ContactController::class, 'rateLimitStatus'])->name('contact.rate-limit-status');
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::get('/testimonials', [HomeController::class, 'testimonials'])->name('testimonials');
 
