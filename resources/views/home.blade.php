@@ -1158,7 +1158,7 @@
                 <div class="scroll-animate">
                     <h2 class="section-title mb-4 scroll-slide-from-top">Trusted by Leading Brands</h2>
                     <p class="section-subtitle scroll-slide-from-top">
-                        From startups to Fortune 500 companies, I've helped brands across industries achieve their content goals.
+                        to craft words that travel light-years — connecting audiences across every universe.
                     </p>
 
                 </div>
